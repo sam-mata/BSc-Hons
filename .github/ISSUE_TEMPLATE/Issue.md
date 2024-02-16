@@ -1,5 +1,6 @@
 ---
 name: Issue
+description: Submit a new issue to the repository.
 title: Remember to Capitalize
 labels: ''
 assignees: 'sam-mata'
