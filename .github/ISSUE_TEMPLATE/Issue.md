@@ -1,10 +1,8 @@
 ---
 name: Issue
-about: Submit an issue to the repository
 title: Remember to Capitalize
 labels: ''
 assignees: 'sam-mata'
-project: 'Research Project'
 ---
 
 Blurb about the issue
