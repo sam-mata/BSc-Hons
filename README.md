@@ -2,6 +2,8 @@
 
 ## 1. Brief
 
+This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+
 ---
 
 ## 2. Installation
