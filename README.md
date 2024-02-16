@@ -12,7 +12,18 @@
 
 ---
 
-## 4. Authorship
+## 4. Tools & Dependencies
+
+| **NAME** | **TYPE** | **VERSION** | **DOCS** |
+| -------- | -------- | ----------- | -------- |
+|          |          |             |          |
+|          |          |             |          |
+|          |          |             |          |
+|          |          |             |          |
+
+---
+
+## 5. Authorship
 
 All development completed by [**Sam Mata**](https://www.sammata.nz/), with supervision from [**Dr Bach Nguyen**](https://people.wgtn.ac.nz/bach.nguyen).
 
