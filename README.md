@@ -6,9 +6,17 @@
 
 ## 2. Installation
 
+After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed, this can be done with the following command:
+
+```python
+    pip install -r requirements.txt
+```
+
 ---
 
 ## 3. Usage
+
+This project utlizes several scripts and notebooks:
 
 ---
 
