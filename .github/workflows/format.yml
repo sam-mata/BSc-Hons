@@ -1,0 +1,21 @@
+name: Formatter
+
+on: [push]
+
+jobs:
+    black:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: psf/black@stable
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.11'
+
+            - name: Install Black
+              run: pip install black
+
+            - name: Run Black
+              run: black .

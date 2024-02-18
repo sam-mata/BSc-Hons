@@ -1,0 +1,19 @@
+name: Syntax & Error Check
+
+on: [push, pull_request]
+
+jobs:
+    pyflakes:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.11'
+
+            - name: Install Pyflakes
+              run: pip install pyflakes
+            - name: Run Pyflakes
+              run: pyflakes .
