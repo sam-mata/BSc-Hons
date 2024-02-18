@@ -1,0 +1,20 @@
+name: Labeler
+on: [pull_request_target]
+
+jobs:
+    label:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            pull-requests: write
+
+        steps:
+            - uses: actions/stale@v5
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+                  stale-pr-message: 'This pull request has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs. Thank you for your contributions.'
+                  stale-issue-label: 'no-issue-activity'
+                  stale-pr-label: 'no-pr-activity'
+                  days-before-stale: 7 # Number of days of inactivity before an issue/PR is marked as stale
+                  days-before-close: 30 # Number of days after being marked stale before an issue/PR is closed
