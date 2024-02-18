@@ -1,0 +1,23 @@
+name: Formatter
+
+on: [push]
+
+jobs:
+    format:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.11'
+
+            - name: Install Dependencies
+              run: |
+                  pip install black nbqa
+
+            - name: Run Black on Python Files and Notebooks
+              run: |
+                  black .
+                  nbqa black .
