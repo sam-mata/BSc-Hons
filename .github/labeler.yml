@@ -1,0 +1,13 @@
+structural:
+    - .github/**/*
+    - tests/**/*
+    - README.md
+    - LICENSE
+    - .gitignore
+    - requirements.txt
+
+eda:
+    - eda/**/*
+
+data:
+    - data/**/*

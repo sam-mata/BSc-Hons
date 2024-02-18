@@ -1,4 +1,4 @@
-name: Syntax & Error Check
+name: Lint
 
 on: [push, pull_request]
 
