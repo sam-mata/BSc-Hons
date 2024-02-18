@@ -3,7 +3,7 @@ name: Syntax & Error Check
 on: [push, pull_request]
 
 jobs:
-    pyflakes:
+    syntax-error-check:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -13,7 +13,11 @@ jobs:
               with:
                   python-version: '3.11'
 
-            - name: Install Pyflakes
-              run: pip install pyflakes
-            - name: Run Pyflakes
-              run: pyflakes .
+            - name: Install Dependencies
+              run: |
+                  pip install pyflakes nbqa
+
+            - name: Run Pyflakes on Python Files and Notebooks
+              run: |
+                  pyflakes .
+                  nbqa pyflakes .
