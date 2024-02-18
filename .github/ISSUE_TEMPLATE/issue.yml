@@ -1,0 +1,30 @@
+
+name: "Issue"
+description: Submit a new issue to the repository.
+title: "Submit a New Issue"
+labels: ''
+assignees: 
+  - sam-mata
+body:
+  - type: markdown
+    attributes:
+      value: "## Please use the following form to submit an issue or task."
+  - type: textarea
+    id: issue-blurb
+    attributes:
+      label: Blurb
+      description: "Write a concise blurb defining the issue."
+      placeholder: "Detailed description of the issue."
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: "List of sub-tasks"
+      options:
+        - label: Example 1
+        - label: Example 2
+        - label: Example 3
+    validations:
+      required: true
