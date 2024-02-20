@@ -1,8 +1,10 @@
 # Sea Level AI
 
+This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+
 ## 1. Brief
 
-This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+Climate change is causing sea levels to rise significantly, which considerably influences the human economy and species' living. One of the direct mechanisms that contribute to the observed sea level rise is the melting of land ice. It is vital to have some insight into how these ice sheets changes in the future. Numerical models have been used to predict how fast ice sheet is melting. These numerical models are based on complex physical numerical models with numerous complex differential equations, which is computationally expensive and time-consuming. This project will develop new evolutionary learning models that can predict ice sheet change effectively and efficiently.
 
 ---
 
