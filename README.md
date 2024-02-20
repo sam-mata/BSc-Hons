@@ -16,22 +16,36 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
     pip install -r requirements.txt
 ```
 
+> [!TIP]
+> Optionally, a [virtual environment](https://docs.python.org/3/library/venv.html) can be setup with the following commands:
+>
+> ```bash
+> python3 -m venv venv
+> ```
+>
+> ```bash
+> .\venv\Scripts\activate
+> ```
+>
+> ```bash
+> pip install -r requirements.txt
+> ```
+
 ---
 
 ## 3. Usage
 
 This project utlizes several scripts and notebooks:
 
+> [!WARNING]
+> This section will be filled in after project completion.
+
 ---
 
-## 4. Tools & Dependencies
+## 4. Results
 
-| **NAME** | **TYPE** | **VERSION** | **DOCS** |
-| -------- | -------- | ----------- | -------- |
-|          |          |             |          |
-|          |          |             |          |
-|          |          |             |          |
-|          |          |             |          |
+> [!WARNING]
+> This section will be filled in after project completion.
 
 ---
 
