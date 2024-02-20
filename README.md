@@ -1,8 +1,10 @@
 # Sea Level AI
 
+This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+
 ## 1. Brief
 
-This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+Climate change is causing sea levels to rise significantly, which considerably influences the human economy and species' living. One of the direct mechanisms that contribute to the observed sea level rise is the melting of land ice. It is vital to have some insight into how these ice sheets changes in the future. Numerical models have been used to predict how fast ice sheet is melting. These numerical models are based on complex physical numerical models with numerous complex differential equations, which is computationally expensive and time-consuming. This project will develop new evolutionary learning models that can predict ice sheet change effectively and efficiently.
 
 ---
 
@@ -14,22 +16,36 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
     pip install -r requirements.txt
 ```
 
+> [!TIP]
+> Optionally, a [virtual environment](https://docs.python.org/3/library/venv.html) can be setup with the following commands:
+>
+> ```bash
+> python3 -m venv venv
+> ```
+>
+> ```bash
+> .\venv\Scripts\activate
+> ```
+>
+> ```bash
+> pip install -r requirements.txt
+> ```
+
 ---
 
 ## 3. Usage
 
 This project utlizes several scripts and notebooks:
 
+> [!WARNING]
+> This section will be filled in after project completion.
+
 ---
 
-## 4. Tools & Dependencies
+## 4. Results
 
-| **NAME** | **TYPE** | **VERSION** | **DOCS** |
-| -------- | -------- | ----------- | -------- |
-|          |          |             |          |
-|          |          |             |          |
-|          |          |             |          |
-|          |          |             |          |
+> [!WARNING]
+> This section will be filled in after project completion.
 
 ---
 
