@@ -33,7 +33,14 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ---
 
-## 3. Usage
+## 3. Structure
+
+> [!WARNING]
+> This section will be filled in after project completion.
+
+---
+
+## 5. Usage
 
 This project utlizes several scripts and notebooks:
 
@@ -42,15 +49,17 @@ This project utlizes several scripts and notebooks:
 
 ---
 
-## 4. Results
+## 6. Results
 
 > [!WARNING]
 > This section will be filled in after project completion.
 
 ---
 
-## 5. Authorship
+## 7. Authorship
 
-All development completed by [**Sam Mata**](https://www.sammata.nz/), with supervision from [**Dr Bach Nguyen**](https://people.wgtn.ac.nz/bach.nguyen).
+All project development completed by [**Sam Mata**](https://www.sammata.nz/), with supervision from [**Dr Bach Nguyen**](https://people.wgtn.ac.nz/bach.nguyen) and [**Dr Bing Xue**](https://people.wgtn.ac.nz/bing.xue).
 
-This project was completed under the [**Center for Data Science and Artificial Intelligence**](https://www.wgtn.ac.nz/cdsai) at [**Victoria University of Wellington**](https://www.wgtn.ac.nz/).
+Datasets provided by [**Professor Nicholas Golledge**](https://people.wgtn.ac.nz/nick.golledge) with initial exploratory data analysis being completed by **Serafina Slevin**.
+
+This project was completed under the [**Center for Data Science and Artificial Intelligence**](https://www.wgtn.ac.nz/cdsai) in collaboration with the [**Antarctic Research Centre**](https://www.wgtn.ac.nz/antarctic) at [**Victoria University of Wellington**](https://www.wgtn.ac.nz/).
