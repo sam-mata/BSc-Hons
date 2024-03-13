@@ -31,7 +31,6 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 > pip install -r requirements.txt
 > ```
 
----
 
 ## 3. Structure
 
@@ -50,6 +49,7 @@ This project utlizes several scripts and notebooks:
 ---
 
 ## 6. Results
+=======
 
 > [!WARNING]
 > This section will be filled in after project completion.
