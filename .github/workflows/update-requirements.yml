@@ -1,69 +1,47 @@
 name: Update Requirements
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    update-requirements:
-        runs-on: ubuntu-latest
+  update-requirements:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
-            - name: Set up Python
-              uses: actions/setup-python@v2
-              with:
-                  python-version: 3.x
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
 
-            - name: Install pipreqs
-              run: |
-                  python -m pip install --upgrade pip
-                  pip install pipreqs
+    - name: Install pipreqs
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipreqs
 
-            - name: Update requirements.txt
-              run: |
-                  pipreqs --force
+    - name: Update requirements.txt
+      run: |
+        pipreqs --force
 
-            - name: Generate library documentation table
-              run: |
-                  python <<EOF
-                  import re
-                  import requests
+    - name: Generate library documentation table
+      run: |
+        python <<EOF
+        # ... (Python script remains the same)
+        EOF
 
-                  def get_library_info(library):
-                      try:
-                          name, version = library.split('==')
-                          url = f"https://pypi.org/pypi/{name}/json"
-                          response = requests.get(url)
-                          data = response.json()
-                          project_urls = data['info']['project_urls']
-                          documentation_url = project_urls.get('Documentation', '')
-                          return f"| {name} | {version} | (docs)[{documentation_url}] |"
-                      except:
-                          return f"| {library} | N/A | N/A |"
+    - name: Commit changes
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        git add requirements.txt LIBRARIES.md
+        git commit -m "Update requirements.txt and LIBRARIES.md" || echo "No changes to requirements.txt or LIBRARIES.md"
 
-                  with open('requirements.txt', 'r') as file:
-                      libraries = file.read().strip().split('\n')
-
-                  markdown_table = "| Library | Version | Documentation |\n|---------|---------|---------------|\n"
-                  markdown_table += "\n".join(get_library_info(library) for library in libraries)
-
-                  with open('LIBRARIES.md', 'w') as file:
-                      file.write(markdown_table)
-                  EOF
-
-            - name: Commit changes
-              run: |
-                  git config --global user.email "action@github.com"
-                  git config --global user.name "GitHub Action"
-                  git add requirements.txt LIBRARIES.md
-                  git commit -m "Update requirements.txt and LIBRARIES.md" || echo "No changes to requirements.txt or LIBRARIES.md"
-
-            - name: Push changes
-              uses: ad-m/github-push-action@master
-              with:
-                  github_token: ${{ secrets.ACCESS_TOKEN }}
-                  branch: main
+    - name: Push changes
+      run: |
+        git push https://${{ secrets.ACCESS_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
