@@ -42,8 +42,8 @@ The datasets are results from current physical simulations, split into `.txt` fi
 
 Several notes of domain knowledge were left with the data, giving possible expectations with how the data and models should behave according to current scientific understandings.
 
--   Outputs are expected to correlate most with **`ocean temperature`**.
--   It is highly likely that the output responses will be lagged with respect to the input forcings _(ie the **`ice thickness`** might start changing years or even decades after a change in boundary conditions.)_.
+-   Outputs are predicted to correlate most with **`ocean temperature`** compared to other input features.
+-   It is predicted that the output responses will be lagged with respect to the input forcings _(ie the **`ice thickness`** might start changing years or even decades after a change in boundary conditions.)_.
 
 > [!WARNING]
 > Many features hold no measured value in some samples, with these being filled with `NaN` or `9.96920996839e+36`.
