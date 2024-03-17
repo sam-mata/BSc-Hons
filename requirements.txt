@@ -1,5 +1,1 @@
-black
 numpy
-matplotlib
-pandas
-scikit-learn
