@@ -2,6 +2,9 @@
 
 This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
 
+> [!CAUTION]
+> This project **is not complete**, and should be viewed as a work-in-progress.
+
 ## 1. Brief
 
 Climate change is causing sea levels to rise significantly, which considerably influences the human economy and species' living. One of the direct mechanisms that contribute to the observed sea level rise is the melting of land ice. It is vital to have some insight into how these ice sheets changes in the future. Numerical models have been used to predict how fast ice sheet is melting. These numerical models are based on complex physical numerical models with numerous complex differential equations, which is computationally expensive and time-consuming. This project will develop new evolutionary learning models that can predict ice sheet change effectively and efficiently.
@@ -10,7 +13,7 @@ Climate change is causing sea levels to rise significantly, which considerably i
 
 ## 2. Installation
 
-After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed, this can be done with the following command:
+After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
 
 ```python
     pip install -r requirements.txt
@@ -50,13 +53,13 @@ Several notes of domain knowledge were left with the data, giving possible expec
 
 ### 3.2 Repository
 
-> [!WARNING]
-> This section is under construction.
-
-### 3.3 Details
-
-> [!NOTE]
-> Put other READMEs here
+-   `.github` - Directory containing repository management tools, including issue templates and formatting checks.
+-   `data` - Input datasets.
+-   `eda` - Exploratory-data-analysis _(EDA)_
+-   `model` - Model training and testing.
+-   `scripts` - Helper scripts for various utilities.
+-   `LICENSE` - Standard MIT usage license.
+-   `requirements.txt` - Required Python libraries and versions for correct usage.
 
 ---
 
@@ -64,7 +67,7 @@ Several notes of domain knowledge were left with the data, giving possible expec
 
 This project utlizes several scripts and notebooks:
 
-> [!WARNING]
+> [!NOTE]
 > This section is under construction.
 
 ---
