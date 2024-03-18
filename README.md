@@ -53,22 +53,29 @@ Several notes of domain knowledge were left with the data, giving possible expec
 
 ### 3.2 Repository
 
--   `.github` - Directory containing repository management tools, including issue templates and formatting checks.
--   `data` - Input datasets.
--   `eda` - Exploratory-data-analysis _(EDA)_
--   `model` - Model training and testing.
--   `scripts` - Helper scripts for various utilities.
--   `LICENSE` - Standard MIT usage license.
--   `requirements.txt` - Required Python libraries and versions for correct usage.
+-   [`.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
+-   [`data`](/data/) - Input datasets.
+-   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
+-   [`model`](/model/) - Model training and testing.
+-   [`scripts`](/scripts/) - Helper scripts for various utilities.
+-   [`LICENSE`](LICENSE) - Standard MIT usage license.
+-   [`requirements.txt`](requirements.txt) - Required Python libraries and versions for correct usage.
 
 ---
 
 ## 5. Usage
 
+> [!NOTE]
+> This section is under construction.
+
 This project utlizes several scripts and notebooks:
 
 > [!NOTE]
-> This section is under construction.
+> A helper script, [`main.py`](/scripts/main.py), is also available for easier utility, this can be run with:
+>
+> ```bash
+> python scripts/main.py
+> ```
 
 ---
 
