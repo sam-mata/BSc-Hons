@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.18)  19 MAR 2024 15:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.19)  20 MAR 2024 12:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -70,7 +70,7 @@ LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <18> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 92.
 \@abstract=\box53
 )
-LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 16.
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 15.
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 ) (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
@@ -80,20 +80,20 @@ File: l3backend-pdftex.def 2024-03-14 L3 backend support: PDF output (pdfTeX)
 ) (proj_proposal.aux)
 \openout1 = `proj_proposal.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 \big@size=\dimen143
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -121,26 +121,26 @@ Package epstopdf Info: Source file: <VUW_Standard_Landscape_BLACK.eps>
 (epstopdf)                    date: 2024-03-18 19:11:07
 (epstopdf)                    size: 6589 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=VUW_Standard_Landscape_BLACK-eps-converted-to.pdf VUW_Standard_Landscape_BLACK.eps>
-(epstopdf)             \includegraphics on input line 31.
+(epstopdf)             \includegraphics on input line 32.
 Package epstopdf Info: Output file is already uptodate.
 <VUW_Standard_Landscape_BLACK-eps-converted-to.pdf, id=1, 290.08376pt x 69.25874pt>
 File: VUW_Standard_Landscape_BLACK-eps-converted-to.pdf Graphic file (type pdf)
 <use VUW_Standard_Landscape_BLACK-eps-converted-to.pdf>
-Package pdftex.def Info: VUW_Standard_Landscape_BLACK-eps-converted-to.pdf  used on input line 31.
+Package pdftex.def Info: VUW_Standard_Landscape_BLACK-eps-converted-to.pdf  used on input line 32.
 (pdftex.def)             Requested size: 270.30118pt x 64.53993pt.
-LaTeX Font Info:    Trying to load font information for OML+zplm on input line 31.
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 32.
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlzplm.fd
 File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 31.
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 32.
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omszplm.fd
 File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 31.
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 32.
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxzplm.fd
 File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
 )
-LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 31.
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 32.
  (C:\Users\samma\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 ) [-1
@@ -148,15 +148,7 @@ File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 {C:/Users/samma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./VUW_Standard_Landscape_BLACK-eps-converted-to.pdf>] [0] [1
 
 
-] [2
-
-] (proj_proposal.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [3
-
-] (proj_proposal.aux)
+] [2] (proj_proposal.bbl) (proj_proposal.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
@@ -164,16 +156,16 @@ L3 programming layer <2024-03-14>
  ) 
 Here is how much of TeX's memory you used:
  1825 strings out of 474424
- 31262 string characters out of 5741739
- 1930496 words of memory out of 5000000
- 24163 multiletter control sequences out of 15000+600000
- 577271 words of font info for 74 fonts, out of 8000000 for 9000
+ 31242 string characters out of 5741739
+ 1933496 words of memory out of 5000000
+ 24162 multiletter control sequences out of 15000+600000
+ 576958 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,5n,79p,313b,248s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on proj_proposal.pdf (5 pages, 77128 bytes).
+<C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplbi8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/samma/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on proj_proposal.pdf (4 pages, 88945 bytes).
 PDF statistics:
- 47 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
