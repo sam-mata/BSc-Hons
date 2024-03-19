@@ -54,6 +54,7 @@ INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstop
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri7t.tfm
 INPUT .\VUW_Standard_Landscape_BLACK.eps
 INPUT .\VUW_Standard_Landscape_BLACK.eps
 INPUT .\VUW_Standard_Landscape_BLACK.eps
@@ -112,16 +113,12 @@ INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr7
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr7t.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb7t.tfm
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ts1ppl.fd
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ts1ppl.fd
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ts1ppl.fd
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8c.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr8c.vf
-INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\public\mathpazo\fplmr.tfm
 INPUT .\proj_proposal.bbl
 INPUT .\proj_proposal.bbl
 INPUT proj_proposal.bbl
@@ -138,3 +135,5 @@ INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplb8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplri8a.pfb
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplri8a.pfb
