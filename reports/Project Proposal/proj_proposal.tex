@@ -1,0 +1,80 @@
+\documentclass[11pt, a4paper, twoside, openright]{report}
+\usepackage{float} % lets you have non-floating floats
+\usepackage{url} % for typesetting urls
+%  We don't want figures to float so we define
+\newfloat{fig}{thp}{lof}[chapter]
+\floatname{fig}{Figure}
+
+
+\title{Genetic Programming for Antarctic Ice Sheet Modelling}
+\author{Samuel Mata}
+\usepackage[font, ecs]{vuwproject} 
+\supervisors{Dr. Bach Nguyen, Dr. Bing Xue}
+\otherdegree{Bachelor of Science with Honors in Artificial Intelligence}
+\date{}
+
+\begin{document}
+
+% Make the page numbering roman, until after the contents, etc.
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+  This project aims to investigate and evaluate the use of Genetic
+  Programming \textit{(GP)} and Evolutionary Learning techniques for
+  the long-term modelling of Antarctic Ice Sheet measurements. 
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+%\tableofcontents
+
+% we want a list of the figures we defined
+%\listof{fig}{Figures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{1. Problem Statement}
+
+The changing conditions of Antarctica's Ice Sheets are a significant
+factor in the changing global climate, particularly with respect to
+rising sea levels [REFERENCE]. In this context, the ability to
+accurately model the long-term behaviour of these ice sheets is
+of great importance.
+
+\section*{2. Motivations}
+
+Current modelling of Antarctic Ice Sheet measurements - such as
+that being undertaked at Victoria University's Antarctic Research
+Center \textit{(ARC)} - is commonly based on the use of traditional
+statistical models. These models are complex and time-consuming to 
+use, limiting the practical scope of the predictive capabilities. 
+The use of machine learning models shows promise as an approach due to the
+improved computational efficiency of these predictive systems. 
+Specifically, the use of Genetic Programming \textit{(GP)} and
+Evolutionary Learning techniques provide the greatest potential
+due to the increased explainability these methods provide.
+
+\section*{3. Goals}
+
+\section*{4. Evaluation}
+
+\section*{5. Resource Requirements}
+
+No external or additional resources are required for the project as all tooling is publicly and freely accessible.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\bibliographystyle{ieeetr}
+\bibliographystyle{acm}
+\bibliography{sample}
+\end{document}
