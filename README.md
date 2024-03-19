@@ -1,6 +1,6 @@
 # Genetic Programming for Sea Level Rise
 
-This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+This project, to be submitted as my honors-year research project, endeavours to utilize genetic programming and evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
 
 > [!WARNING]
 > ⚠️*This project **is not complete**, and should be viewed as a work-in-progress*.
@@ -21,21 +21,37 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ---
 
-## 3 Repository
+## 3. Usage
 
-### 3.1 Directories
+> [!NOTE]
+> This section is under construction.
+
+This project utlizes several scripts and notebooks:
+
+> [!NOTE]
+> A helper script, [`main.py`](/scripts/main.py), is also available for easier utility, this can be run with:
+>
+> ```bash
+> python scripts/main.py
+> ```
+
+---
+
+## 4. Repository
+
+### 4.1 Directories
 
 -   [`/data`](/data/) - Input datasets.
 -   [`/model`](/model/) - Model training and testing.
 -   [`/scripts`](/scripts/) - Helper scripts with various shorthand utilities for reuse across project.
--   [`/reports`](/reports/) - Project
+-   [`/reports`](/reports/) - Project proposal and other reporting.
 
-### 3.2 Root Files
+### 4.2 Root Files
 
 -   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
--   [`main.py`](main.py) - e
+-   [`main.py`](main.py) - Startup helper script to launch training, testing, and analysis utilities.
 
-### 3.3 Project Management
+### 4.3 Project Management
 
 -   [`/.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
 -   [`LICENSE`](LICENSE) - Standard MIT usage license.
@@ -43,7 +59,7 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ---
 
-## 4. Dataset
+## 5. Dataset
 
 This project uses datasets provided by [**Professor Nicholas Golledge**](https://people.wgtn.ac.nz/nick.golledge) from [**Victoria University's Antarctic Research Center**](https://www.wgtn.ac.nz/antarctic).
 
@@ -70,22 +86,6 @@ Several notes of domain knowledge were left with the data, giving possible expec
 
 > [!WARNING]
 > Many features hold no measured value in some samples, with these being filled with `NaN` or `9.96920996839e+36`.
-
----
-
-## 5. Usage
-
-> [!NOTE]
-> This section is under construction.
-
-This project utlizes several scripts and notebooks:
-
-> [!NOTE]
-> A helper script, [`main.py`](/scripts/main.py), is also available for easier utility, this can be run with:
->
-> ```bash
-> python scripts/main.py
-> ```
 
 ---
 
