@@ -5,7 +5,6 @@
 \newfloat{fig}{thp}{lof}[chapter]
 \floatname{fig}{Figure}
 
-
 \title{Genetic Programming for Antarctic Ice Sheet Modelling}
 \author{Samuel Mata}
 \usepackage[font, ecs]{vuwproject} 
@@ -18,57 +17,90 @@
 % Make the page numbering roman, until after the contents, etc.
 \frontmatter
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{abstract}
-  This project aims to investigate and evaluate the use of Genetic
-  Programming \textit{(GP)} and Evolutionary Learning techniques for
-  the long-term modelling of Antarctic Ice Sheet measurements. 
+  With the growing need for accurate long-term modelling of
+  the Antarctic Ice Sheets, the currently used statistical
+  models do not provide the necessary computational 
+  efficiency for sufficiently long term predictions. This
+  project aims to investigate and evaluate the application
+  of Genetic Programming \textit{(GP)} and Evolutionary
+  Learning techniques as a potential alternative to 
+  traditional methods.
 \end{abstract}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \maketitle
-
-%\tableofcontents
-
-% we want a list of the figures we defined
-%\listof{fig}{Figures}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \mainmatter
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{1. Problem Statement}
 
-The changing conditions of Antarctica's Ice Sheets are a significant
-factor in the changing global climate, particularly with respect to
-rising sea levels [REFERENCE]. In this context, the ability to
-accurately model the long-term behaviour of these ice sheets is
-of great importance.
+The changing conditions of Antarctica's Ice Sheets are a 
+significant factor in global climate change, particularly
+with respect to rising sea levels. In this context, the
+ability to accurately model the long-term behaviour of
+these ice sheets is of great importance. Current approaches
+are not computationally efficient enough to provide
+meaningfully long-term predictions, and so this project
+aims to investigate the application of Genetic Programming
+\textit{(GP)} and  Evolutionary Learning techniques as a
+potential alternative. There is some challenge in the
+application of these techniques, as the models produced
+must be accurate and efficient enough to meaningfully
+improve the practicality of long-term predictions.
+Furthermore, for the results to be trusted
+the models must be explainable and interpretable.
+
 
 \section*{2. Motivations}
 
-Current modelling of Antarctic Ice Sheet measurements - such as
-that being undertaked at Victoria University's Antarctic Research
-Center \textit{(ARC)} - is commonly based on the use of traditional
-statistical models. These models are complex and time-consuming to 
-use, limiting the practical scope of the predictive capabilities. 
-The use of machine learning models shows promise as an approach due to the
-improved computational efficiency of these predictive systems. 
-Specifically, the use of Genetic Programming \textit{(GP)} and
-Evolutionary Learning techniques provide the greatest potential
-due to the increased explainability these methods provide.
+Current methods of modelling Antarctic Ice Sheet measurements 
+- such as those being undertaken at Victoria University's Antarctic 
+Research Center \textit{(ARC)} - are typically based on
+traditional statistical methods, which are computationally
+intensive and time consuming. This inefficiency limits the
+practical scope of predictions, excluding the potential of
+longer-term forecasts. The use of machine learning models
+shows promise as an approach due to the relatively improved 
+computational efficiency of these predictive systems. 
+Specifically, the use of Genetic Programming \textit{(GP)} 
+and Evolutionary Learning techniques provide the 
+greatest potential due to the increased explainability
+these methods provide allowing for greater understanding in
+the results provided. This is a novel application for
+these techniques, and so the potential for improvement
+compared to traditional methods is worth investigation.
 
 \section*{3. Goals}
 
+The primary goal of this project is to investigate the
+application of Genetic Programming and Evolutionary Learning
+techniques on the problem of Antarctic Ice Sheet modelling.
+This will involve several stages:
+\begin{enumerate}
+\item An initial Exploratory Data Analysis \textit{(EDA)} of
+  the data provided by the ARC, to greater understand the
+  the nature of the problem and the data. \textit{(~ 3 weeks)}
+\item Several iterations of model development and evaluation
+  using Genetic Programming and Evolutionary Learning
+  techniques, to identify the most effective approach.
+  \textit{(~9 weeks)}
+\item Further development of the most effective approach,
+  targetting the explainability and interpretability of
+  the predicted outputs. \textit{(~3 weeks)}
+\item A final evaluation of the most effective model, to
+  determine the potential for improvement over traditional
+  methods. \textit{(~4 weeks)}
+\end{enumerate}
+
 \section*{4. Evaluation}
+
+
 
 \section*{5. Resource Requirements}
 
-No external or additional resources are required for the project as all tooling is publicly and freely accessible.
+No external or additional resources are required for the
+project as all tooling is publicly and freely accessible.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
