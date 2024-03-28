@@ -23,8 +23,8 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ## 3. Usage
 
-> [!NOTE]
-> This section is under construction.
+> [!WARNING]
+> ⚠️*This section is still being completed*.
 
 This project utlizes several scripts and notebooks:
 

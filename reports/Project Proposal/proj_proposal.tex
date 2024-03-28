@@ -23,9 +23,8 @@
   models do not provide the necessary computational 
   efficiency for sufficiently long term predictions. This
   project aims to investigate and evaluate the application
-  of Genetic Programming \textit{(GP)} and Evolutionary
-  Learning techniques as a potential alternative to 
-  traditional methods.
+  of advanced machine learning techniques as a potential
+  alternative to traditional methods.
 \end{abstract}
 
 
@@ -37,14 +36,18 @@
 
 The changing conditions of Antarctica's Ice Sheets are a 
 significant factor in global climate change, particularly
-with respect to rising sea levels. In this context, the
+with respect to rising sea levels \cite{edwards2021projected}.
+As these ice sheets melt due to global warming, the global
+mean sea level \textit{(GMSL)} rises, with wide ranging 
+implications for coastal communities and ecosystems \cite{hinkel2014coastal}.
+In this context, the
 ability to accurately model the long-term behaviour of
 these ice sheets is of great importance. Current approaches
 are not computationally efficient enough to provide
 meaningfully long-term predictions within practical time
-limits. This project aims to investigate the application of
-Genetic Programming \textit{(GP)} and  Evolutionary Learning
-techniques as a potential alternative. There is some
+limits \cite{huybrechts1988evolution}. This project aims to investigate the application of
+advanced machine learning algorithms as a potential
+alternative. There is some
 challenge in the application of these techniques, as the
 models produced must be accurate and efficient enough to
 meaningfully improve the practicality of long-term
@@ -54,16 +57,21 @@ the models must be explainable and interpretable.
 
 \section*{2. Motivations}
 
-Current methods of modelling Antarctic Ice Sheet measurements 
+Current methods of modelling Antarctic Ice Sheet measurements
 - such as those being undertaken at Victoria University's Antarctic 
 Research Center \textit{(ARC)} - are typically based on
 traditional statistical methods, which are computationally
-intensive and time consuming. This inefficiency limits the
+intensive and time consuming \cite{huybrechts1988evolution},\cite{golledge2020long}. This inefficiency limits the
 practical scope of predictions, excluding the potential of
 longer-term forecasts. The use of machine learning models
 shows promise as an approach due to the improved 
-computational efficiency of these predictive systems. 
-Specifically, the use of Genetic Programming \textit{(GP)} 
+computational efficiency of these predictive systems
+\cite{simeone2018brief}.
+Machine learning models have been used widely for similar
+regressional forecasting, showing significant performance
+benefits \cite{simeone2018brief}.
+While many methods will be evaluated, the use of 
+Genetic Programming \textit{(GP)} 
 and Evolutionary Learning techniques provide the 
 greatest potential due to the increased explainability
 these methods provide allowing for greater understanding in
@@ -91,7 +99,7 @@ This will involve several stages:
   
   Finally, potential feature engineering opportunities
   should be explored to identify potential improvements.
-\item \textbf{Several iterations of model development} and evaluation
+\item \textbf{Development of target-independant models} and evaluation
   using Genetic Programming and Evolutionary Learning
   techniques, to identify the most effective approach.
   \textit{(~8 weeks)}
@@ -99,7 +107,15 @@ This will involve several stages:
   Each model should explore implementing a different
   approach, before analysing and evaluating the results
   against previous iterations.
-\item \textbf{Further development of the most effective approach},
+\item \textbf{Development of target-dependant models} and evaluation
+  using Genetic Programming and Evolutionary Learning
+  techniques, to identify the most effective approach.
+  \textit{(~8 weeks)}
+
+  Each model should explore implementing a different
+  approach, before analysing and evaluating the results
+  against previous iterations.
+\item \textbf{Evaluation of model interpretability and explainability},
   targetting the explainability and interpretability of
   the predicted outputs. \textit{(~4 weeks)}
 
@@ -107,7 +123,7 @@ This will involve several stages:
   underlying mathematical expressions evolved by the model,
   and checking these against current scientific
   understanding of the problem.
-\item \textbf{A final evaluation of the most effective model}, to
+\item \textbf{Further evaluation and improvement of the most effective model}, to
   determine the potential for improvement over traditional
   methods. \textit{(~4 weeks)}
 
@@ -131,13 +147,16 @@ criteria:
   provide accurate predictions of the Antarctic Ice Sheet
   measurements, and that these predictions closely follow
   the measurements provided by ARC.
+  
+  Possible metrics for
+  this evaluation include Precision, Recall, Accuracy,
+  F1 Score and Mean Squared Error \textit{(MSE)}.
 \item \textbf{The computational efficiency of the model.}
 
   Any developed model should maintain a sufficiently high
   computational efficiency to allow for long-term predictions
   without exceeding practical time limits.
 \item \textbf{The interpretability of the model's results.}
-
   To verify and validate the results of the model, the 
   predicted results should also be available for 
   interpretation and explanation as to how those results
@@ -156,7 +175,6 @@ project as all tooling is publicly and freely accessible.
 \backmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\bibliographystyle{ieeetr}
 \bibliographystyle{acm}
-\bibliography{sample}
+\bibliography{references}
 \end{document}

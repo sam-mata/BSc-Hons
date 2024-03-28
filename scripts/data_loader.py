@@ -6,7 +6,7 @@ import logging
 """
 
 
-def load_data(data_dir: str):
+def load_data(data_dir: str) -> pd.DataFrame:
     """Loads all matching files in given directory into a single dataframe.
 
     Args:
@@ -39,14 +39,14 @@ def load_data(data_dir: str):
             logging.warning(f"\t⚠️File not found: {file_path}")
 
     dataframe: pd.DataFrame = pd.concat(dfs, ignore_index=True)
-    logging.info(f"\t📊Data Loaded: {dataframe.shape}")
+    logging.info(f"\t✅Data Loaded: {dataframe.shape}")
     return dataframe
 
 
 def split_features_targets(
     dataframe: pd.DataFrame,
     target_names: list = ["ice_thickness", "ice_velocity", "ice_mask"],
-):
+) -> tuple:
     """Split a dataframe into features and targets.
 
     Args:
