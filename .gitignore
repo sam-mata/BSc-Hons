@@ -79,3 +79,12 @@ venv.bak/
 
 # Cython debug symbols
 cython_debug/
+
+# LaTex intermediate files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz

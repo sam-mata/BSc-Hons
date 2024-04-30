@@ -117,8 +117,11 @@ INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr7t.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb7t.tfm
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplbi7t.tfm
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplbi7t.vf
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplbi8r.tfm
 INPUT .\proj_proposal.bbl
 INPUT .\proj_proposal.bbl
 INPUT proj_proposal.bbl
@@ -133,6 +136,8 @@ INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\helvetic\uhvr
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\helvetic\uhvr8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplb8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplb8a.pfb
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplbi8a.pfb
+INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplbi8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplr8a.pfb
 INPUT C:\Users\samma\AppData\Local\Programs\MiKTeX\fonts\type1\urw\palatino\uplri8a.pfb
