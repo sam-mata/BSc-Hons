@@ -66,6 +66,12 @@ def plot_spatial_heatmap(df: pd.DataFrame, feature: str):
 
 
 def create_heatmap_gif(df: pd.DataFrame, feature: str):
+    """Creates an animated gif of a feature's spatial distribution over time.
+
+    Args:
+        df (pd.DataFrame): Dataframe containing feature.
+        feature (str): Feature to be analysed.
+    """
     years = df["year"].unique()
     fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -105,3 +111,26 @@ def create_heatmap_gif(df: pd.DataFrame, feature: str):
     animation = FuncAnimation(fig, update, frames=years, interval=100)
     animation.save(f"out/gifs/{feature}_heatmap.gif", writer="pillow")
     plt.close()
+
+
+def plot_correlation_heatmap(
+    df: pd.DataFrame, method: str = "all", size: tuple[int, int] = (7, 7)
+):
+    """Plots a heatmap of the correlation matrix of features.
+    Args:
+        df (pd.DataFrame): Dataframe containing features.
+        method (str, optional): Correlation method/s to use. Defaults to "all".
+        size (tuple[int, int], optional): Size of the heatmap. Defaults to (7, 7).
+    """
+    plt.clf()
+    plt.figure(figsize=size)
+
+    if method == "all":
+        for method in ["pearson", "spearman", "kendall"]:
+            plt.title(f"Correlation matrix using {method} method")
+            sns.heatmap(df.corr(method=method), annot=True)
+            plt.show()
+    elif method in ["pearson", "spearman", "kendall"]:
+        plt.title(f"Correlation matrix using {method} method")
+        sns.heatmap(df.corr(method=method), annot=True)
+        plt.show()
