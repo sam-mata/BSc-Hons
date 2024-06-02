@@ -14,6 +14,7 @@ Climate change is causing sea levels to rise significantly, which considerably i
 ## 2. Installation
 
 After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
+After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
 
 ```python
     pip install -r requirements.txt
