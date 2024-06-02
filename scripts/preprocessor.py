@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, RobustScaler
 
 
 """Functions for preprocessing data.
@@ -28,6 +28,11 @@ def remove_fillers(
     # Replace all values in ocean_temperature that are greater than 1000 with NaN
     df["ocean_temperature"] = df["ocean_temperature"].apply(
         lambda x: np.where(x > 1000, np.NaN, x)
+    )
+
+    # Replace all values in ice_mask that are not 2, 3, or 4 with 2
+    df["ice_mask"] = df["ice_mask"].apply(
+        lambda x: np.where((x != 2) & (x != 3) & (x != 4), 2, x)
     )
 
     # Replace all values in ice_velocity,, ice_thickness, and ice_mask that are less than or equal to 0 with NaN
@@ -92,9 +97,8 @@ def fill_missing(df: pd.DataFrame, filltype: str = "mean") -> pd.DataFrame:
 
 
 def transform_data(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Converts the 'x' and 'y' coordinates into integer indexes with the center at (0, 0).
-    """
+
+    # Convert the 'x' and 'y' coordinates into integer indexes with the center at (0, 0)
     cell_size = 121600
     min_x = -3040000
     min_y = -3040000
@@ -102,5 +106,17 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
     # Calculate the x and y indexes based on the coordinates
     df["x"] = (((df["x"] - min_x) / cell_size) - 25).astype(int)
     df["y"] = (((df["y"] - min_y) / cell_size) - 25).astype(int)
+
+    # Apply a robust scaler to 'ocean_temperature', 'precipitation', and 'ice_velocity'
+    scaler = RobustScaler()
+    df[["ocean_temperature", "precipitation", "ice_velocity"]] = scaler.fit_transform(
+        df[["ocean_temperature", "precipitation", "ice_velocity"]]
+    )
+
+    # Apply a min-max scaler to 'air_temperature' and 'ice_thickness'
+    scaler = MinMaxScaler()
+    df[["air_temperature", "ice_thickness"]] = scaler.fit_transform(
+        df[["air_temperature", "ice_thickness"]]
+    )
 
     return df

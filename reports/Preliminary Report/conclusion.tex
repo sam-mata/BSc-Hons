@@ -1,2 +1,13 @@
-\chapter{Conclusions}\label{C:con}
-The conclusions are presented in this Chapter.
+\chapter{Future Development Plan}\label{C:conclusion}
+
+Current progress in this project has given a solid understanding of the dataset, and a clear plan for future work. While some currently unknown issues are still likely to be detected further in development, I believe the preprocessing and analysis stages of development are now complete. The adjusted timeline for the remaining development stages is as follows:
+
+\begin{enumerate}
+        \item \textbf{Development of target-independent models ($\approx$ 2 weeks)} to predict target variables using advanced machine learning principles. At this stage each target should be predicted independently, without usage of other predicted values. As such, this is a fairly typical case of predictive modelling, and mostly used for benchmarking against further models. Each model should explore implementing a different approach, before analysing and evaluating the results against previous iterations.
+
+    \item \textbf{Development of target-dependant models ($\approx$ 8 weeks)} for similar predictions as stage 1, but with consideration for the relationships between target variables. This stands as a significantly more complex architecture to implement and develop.  Again, each model should explore implementing a different approach before analysis and evaluation against previous iterations. 
+
+    \item \textbf{Evaluation of model interpretability and explainability ($\approx$ 4 weeks)}, including developing the explainability and interpretability of the predicted outputs.  This will involve analysing and visualising the underlying mathematical expressions evolved by the model, and checking these against current scientific understanding of the problem.
+
+    \item \textbf{Further evaluation and improvement of the most effective model ($\approx$ 4 weeks)}, to determine the potential for improvement over traditional methods. Evaluation should consider many measures, particularly the computational efficiency of the model, the accuracy of the predictions, and the interpretability of the results.
+\end{enumerate}
