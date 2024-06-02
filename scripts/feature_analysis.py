@@ -1,7 +1,6 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 import os
 
 GROUP_FIG_SIZE = (15, 8)
