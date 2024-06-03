@@ -1,0 +1,41 @@
+\chapter{Project Proposal}\label{C:project_proposal}
+
+The following is a copy of the original project proposal.
+
+\section{Problem Statement}
+
+The changing conditions of Antarctica’s Ice Sheets are a significant factor in global climate change, particularly with respect to rising sea levels. As these ice sheets melt due to global warming, the global mean sea level (GMSL) rises, with wide ranging implications for coastal communities and ecosystems. In this context, the ability to accurately model the long-term behaviour of these ice sheets is of great importance. Current approaches are not computationally efficient enough to provide meaningfully long-term predictions within practical time limits. This project aims to investigate the application of advanced machine learning algorithms as a potential alternative. There is some challenge in the application of these techniques, as the models produced must be accurate and efficient enough to meaningfully improve the practicality of long-term predictions. Furthermore, for the results to be trusted the models must be explainable and interpretable. 
+
+\section{Motivations}
+
+Current methods of modelling Antarctic Ice Sheet measurements - such as those being undertaken at Victoria University’s Antarctic Research Center (ARC) - are typically based on traditional statistical methods, which are computationally intensive and time consuming. This inefficiency limits the practical scope of predictions, excluding the potential of longer-term forecasts. The use of machine learning models shows promise as an approach due to the improved computational efficiency of these predictive systems. Machine learning models have been used widely for similar regressional forecasting, showing significant performance benefits. While many methods will be evaluated, the use of Genetic Programming (GP) and Evolutionary Learning techniques provide the greatest potential due to the increased explainability these methods provide allowing for greater understanding in the results provided. This is a novel application for these techniques, and so the potential for improvement compared to traditional methods is worth investigation. 
+
+\section{Goals}
+The primary goal of this project is to investigate the application of Genetic Programming and Evolutionary Learning techniques on the problem of Antarctic Ice Sheet modelling. This will involve several stages: 
+
+\begin{enumerate}
+    \item \textbf{An initial Exploratory Data Analysis (EDA)  ( 2 weeks)} of the data provided by the ARC, to greater understand the the nature of the problem and the data. This will involve the use of univariate, bivariate, and multi-variate analysis to identify the distribution, shape, and relationships of the features. Variables should also be analysed in terms of their spatial and temporal distributions. Finally, potential feature engineering opportunities should be explored to identify potential improvements. 
+
+    \item \textbf{Development of target-independant models ( 6 weeks)} to predict target variables using advanced machine learning principles. At this stage each target should be predicted independently, without usage of other predicted values. Each model should explore implementing a different approach, before analysing and evaluating the results against previous iterations. 
+
+    \item \textbf{Development of target-dependant models for similar predictions ( 6 weeks)}, but taking into account the possible relationships between target variables. Each model should explore implementing a different approach, before analysing and evaluating the results against previous iterations.
+
+    \item \textbf{Evaluation of model interpretability and explainability ( 4 weeks)}, targeting the explainability and interpretability of the predicted outputs.  This will involve analysing and visualising the underlying mathematical expressions evolved by the model, and checking these against current scientific understanding of the problem.
+
+    \item \textbf{Further evaluation and improvement of the most effective model ( 4 weeks)}, to determine the potential for improvement over traditional methods. Evaluation should consider many measures, particularly the computational efficiency of the model, the accuracy of the predictions, and the interpretability of the results. Project milestones should be set for each of these stages to ensure that the project remains on track. It is important to note the potential for these goals to change as the direction of the project becomes clearer. 
+\end{enumerate}
+
+\section{Evaluation}
+
+The success of the project will be evaluated on three main criteria: 
+
+\begin{enumerate}
+    \item \textbf{The accuracy of the the model’s predictions.} It is important that the developed model is able to provide accurate predictions of the Antarctic Ice Sheet measurements, and that these predictions closely follow the measurements provided by ARC. Possible metrics for this evaluation include Precision, Recall, Accuracy, F1 Score and Mean Squared Error (MSE).
+
+    \item \textbf{The computational efficiency of the model. }Any developed model should maintain a sufficiently high computational efficiency to allow for long-term predictions without exceeding practical time limits.
+
+    \item \textbf{The interpretability of the model’s results.} To verify and validate the results of the model, the predicted results should also be available for interpretation and explanation as to how those results were reached. These criteria can be used as metrics to objectively evaluate the performance of the models developed, and to compare them against traditional methods.
+\end{enumerate}
+
+\section{Resource Requirements}
+No external or additional resources are required for the project as all tooling is publicly and freely accessible.  

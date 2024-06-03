@@ -1,0 +1,22 @@
+\chapter{Background}\label{C:background}
+
+\section{Antarctic Ice Sheet Modelling}
+
+The modelling of ice sheets has been a prominent area of physical modelling since the early 1950's \cite{Blatter2010}. Typically this is done with physics-based simulations, largely derived from flow properties and generalised fluid-dynamics equations. These simulations require precise tracking of various climatic, geographical, and meteorological measures. As such, the simulations are often highly intensive in terms of computational resources and time. As a distinction, this project aims to investigate an alternative solution to these physics-based models, ideally providing similar results in a more efficient time frame.
+
+\section{Artificial Intelligence Techniques for Ice Sheet Modelling}
+
+The application of artificial intelligence \textit{(AI)} and machine learning \textit{(ML)} techniques for ice sheet modelling is a relatively new area of research \cite{Dungate2021}, \cite{Vir2024}.  Currently this is largely focused on the application of deep learning - a type of machine learning that relies on densely nested neural networks \cite{Rosier2023}.  Initial results from these studies are promising, showing significant benefits to modelling speed while mostly maintaining predictive accuracy compared to physics-based simulations \cite{Jouvet2021}, \cite{Verjans2024}. However, the techniques used by this project, specifically evolutionary computation and genetic programming, are similar in nature but still mostly unexplored for this purpose.
+
+ \section{Description of Initial Dataset}\label{S:description_dataset}
+
+The dataset used in this project was obtained from Victoria University of Wellington's Antarctic Research Center. It details the results of several physics-based simulations in effort to predict the future state of the Antarctic Ice Sheet. Specifically, the dataset constitutes 86 files, each representing 1 year of simulation data \textit{(ranging from 2015 to 2100 inclusive)}. Each of these files contains 2601 datapoints \textit{(totalling 223,686 across all files)}, with each datapoint representing one cell in  a 51x51 grid of the Antarctic Ice Sheet. 8 measures are counted for each datapoint, which can be described in three forms:
+
+\begin{description}
+  \item[Positional Constants] - These encode the constant positional data of each cell in a pair of  \texttt{x\_coordinate} and \texttt{y\_coordinate} values. Both of these values range from -3,040,000m to 3,040,000m in discrete intervals of 121,600m, with the grid being centered around point \textit{(0,0)}, which lies on the South Pole. These are not directly useful for modelling without feature engineering, and primarily serve as a reference for the grid. Additionally, a \texttt{year} variable can be derived from the file sequences, which denotes the year of that simulations results.
+
+  \item[Input Forcings] - These are the primary inputs to be utilized in model prediction. These include 3 continuous features; \texttt{precipitation} \textit{(mm / year)}, \texttt{air\_temperature} \textit{(°K)}, and \texttt{ocean\_temperature} \textit{(°K)},  which are the respective measurements for each cell provided by the physical simulation. 
+    
+  \item[Outputs] - These are the target outputs for the model to predict.  These include 2 continuous measurements; \texttt{ice\_thickness} \textit{(m)} and \texttt{ice\_velocity} \textit{(m / year)}, which represent the respective thickness and velocity of the ice in each cell.  This also includes \texttt{ice\_mask}, which is a discrete value representing whether a cell contains grounded ice, floating ice, or no ice at all \textit{(i.e. open ocean)}.
+\end{description}
+ 

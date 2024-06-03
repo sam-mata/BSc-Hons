@@ -1,9 +1,9 @@
 # Genetic Programming for Sea Level Rise
 
-This project, to be submitted as my honors-year research project, endeavours to utilize genetic programming and evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
 
-> [!WARNING]
-> ⚠️*This project **is not complete**, and should be viewed as a work-in-progress*.
+> [!CAUTION]
+> This project **is not complete**, and should be viewed as a work-in-progress.
 
 ## 1. Brief
 
@@ -14,6 +14,7 @@ Climate change is causing sea levels to rise significantly, which considerably i
 ## 2. Installation
 
 After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
+After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
 
 ```python
     pip install -r requirements.txt
@@ -21,7 +22,49 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ---
 
-## 3. Usage
+## 3. Structure
+
+### 3.1 Data
+
+This project uses datasets provided by [**Professor Nicholas Golledge**](https://people.wgtn.ac.nz/nick.golledge).
+
+The datasets are results from current physical simulations, split into `.txt` files labeled by year _(ranging 86 years from 2015 to 2100)_. Each file represents 1 year, holding 8 features split across 3 types:
+
+1. **POSITIONAL CONSTANTS**
+
+    Positional data is encoded with two input features: **`x coordinate`** and **`y coordinate`**. These are constant over time, and unique to each sample.
+
+2. **BOUNDARY CONDITIONS / INPUT FORCINGS**
+
+    There are three temporally-evolving boundary conditions that can be used for model predictions: **`precipitation`**, **`air temperature`**, and **`ocean temperature`**.
+
+3. **OUTPUTS**
+
+    There are three outputs to be predicted: **`ice thickness`**, **`ice velocity`**, and **`ice mask`**. Ideally these will be predicted from the input forcings and positional data.
+
+#### Domain Knowledge
+
+Several notes of domain knowledge were left with the data, giving possible expectations with how the data and models should behave according to current scientific understandings.
+
+-   Outputs are predicted to correlate most with **`ocean temperature`** compared to other input features.
+-   It is predicted that the output responses will be lagged with respect to the input forcings _(ie the **`ice thickness`** might start changing years or even decades after a change in boundary conditions.)_.
+
+> [!WARNING]
+> Many features hold no measured value in some samples, with these being filled with `NaN` or `9.96920996839e+36`.
+
+### 3.2 Repository
+
+-   [`.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
+-   [`data`](/data/) - Input datasets.
+-   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
+-   [`model`](/model/) - Model training and testing.
+-   [`scripts`](/scripts/) - Helper scripts for various utilities.
+-   [`LICENSE`](LICENSE) - Standard MIT usage license.
+-   [`requirements.txt`](requirements.txt) - Required Python libraries and versions for correct usage.
+
+---
+
+## 5. Usage
 
 > [!NOTE]
 > This section is under construction.
@@ -34,58 +77,6 @@ This project utlizes several scripts and notebooks:
 > ```bash
 > python scripts/main.py
 > ```
-
----
-
-## 4. Repository
-
-### 4.1 Directories
-
--   [`/data`](/data/) - Input datasets.
--   [`/model`](/model/) - Model training and testing.
--   [`/scripts`](/scripts/) - Helper scripts with various shorthand utilities for reuse across project.
--   [`/reports`](/reports/) - Project proposal and other reporting.
-
-### 4.2 Root Files
-
--   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
--   [`main.py`](main.py) - Startup helper script to launch training, testing, and analysis utilities.
-
-### 4.3 Project Management
-
--   [`/.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
--   [`LICENSE`](LICENSE) - Standard MIT usage license.
--   [`requirements.txt`](requirements.txt) - Required Python libraries and versions for correct usage.
-
----
-
-## 5. Dataset
-
-This project uses datasets provided by [**Professor Nicholas Golledge**](https://people.wgtn.ac.nz/nick.golledge) from [**Victoria University's Antarctic Research Center**](https://www.wgtn.ac.nz/antarctic).
-
-The datasets are results from current physical simulations, split into `.txt` files labeled by year _(ranging 86 years from 2015 to 2100)_ held in the [`data`](data) directory. Each file represents 1 year, holding 8 features split across 3 types:
-
-1. ### Positional Constants
-
-    Spatial data is encoded simply with two input features: **`x coordinate`** and **`y coordinate`**. These are constant over time, and unique to each sample.
-
-2. ### Boundary Conditions / Input Forcings
-
-    There are three temporally-evolving boundary conditions that can be used for model predictions: **`precipitation`**, **`air temperature`**, and **`ocean temperature`**.
-
-3. ### Outputs
-
-    There are three outputs to be predicted: **`ice thickness`**, **`ice velocity`**, and **`ice mask`**.
-
-### Domain Knowledge
-
-Several notes of domain knowledge were left with the data, giving possible expectations with how the data and models should behave according to current scientific understandings.
-
--   Outputs are predicted to correlate most with **`ocean temperature`** compared to other input features.
--   It is predicted that the output responses will be lagged with respect to the input forcings _(ie the **`ice thickness`** might start changing years or even decades after a change in boundary conditions.)_.
-
-> [!WARNING]
-> Many features hold no measured value in some samples, with these being filled with `NaN` or `9.96920996839e+36`.
 
 ---
 

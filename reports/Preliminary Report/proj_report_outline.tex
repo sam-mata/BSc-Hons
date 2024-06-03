@@ -1,0 +1,96 @@
+%% $RCSfile: proj_report_outline.tex,v $
+%% $Revision: 1.3 $
+%% $Date: 2016/06/10 03:41:54 $
+%% $Author: kevin $
+
+\documentclass[11pt
+              , a4paper
+              , twoside
+              , openany
+              ]{report}
+
+
+\usepackage{float} % lets you have non-floating floats
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{adjustbox}
+
+
+\usepackage{url} % for typesetting urls
+%
+%  We don't want figures to float so we define
+%
+\newfloat{fig}{thp}{lof}[chapter]
+\floatname{fig}{Figure}
+                       
+\title{Preliminary Report: Genetic Programming for Antarctic Ice Sheet Modelling}
+\author{Samuel Mata}
+\usepackage[image,ecs,bschonscomp]{vuwproject}
+\supervisors{Dr. Bach Nguyen and Dr. Bing Xue}
+\otherdegree{Bachelor of Science with Honors in Artificial Intelligence}
+% Comment this out if you want the date printed.
+\date{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{cleveref}
+\crefformat{table}{Table~#2#1#3}
+\crefformat{fig}{Figure~#2#1#3}
+\crefformat{C}{Chapter~#2#1#3}
+\crefformat{S}{Section~#2#1#3}
+\crefformat{SS}{Subsection~#2#1#3}
+
+\begin{document}
+
+% Make the page numbering roman, until after the contents, etc.
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+This project aims to investigate and evaluate the use of Genetic Programming \textit{(GP)} and Evolutionary Learning techniques for the long-term modelling of Antarctic Ice Sheet measurements. This is a preliminary report, detailing the work completed since the start of the project. 
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\maketitle
+
+
+\tableofcontents
+
+% we want a list of the figures we defined
+\listof{fig}{Figures}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% individual chapters included here
+\include{introduction}
+\include{background}
+\include{eda}
+\include{conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\bibliographystyle{ieeetr}
+\bibliographystyle{acm}
+\bibliography{references}
+
+% Appendix
+\appendix
+\include{appendix}
+
+
+\end{document}
