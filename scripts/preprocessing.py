@@ -9,13 +9,13 @@ from sklearn.preprocessing import MinMaxScaler, RobustScaler
 
 
 def remove_fillers(
-    df: pd.DataFrame, fillers: list = [np.NaN, -4.865496]
+    df: pd.DataFrame, fillers: list = [np.nan, -4.865496]
 ) -> pd.DataFrame:
     """Removes filler values from a dataframe.
 
     Args:
         df (pd.Dataframe): Dataframe to be cleaned.
-        fillers (list, optional): List of filler values to be removed. Defaults to [np.NaN, 9.96920996839e36].
+        fillers (list, optional): List of filler values to be removed. Defaults to [np.nan, 9.96920996839e36].
 
     Returns:
         pd.Dataframe: Cleared dataframe.
@@ -23,11 +23,11 @@ def remove_fillers(
     logging.info("\n🧹Removing fillers from dataframe:")
     for filler_value in fillers:
         logging.info(f"\tRemoving filler: {filler_value}")
-        df = df.apply(lambda x: np.where(np.isclose(x, filler_value), np.NaN, x))
+        df = df.apply(lambda x: np.where(np.isclose(x, filler_value), np.nan, x))
 
     # Replace all values in ocean_temperature that are greater than 1000 with NaN
     df["ocean_temperature"] = df["ocean_temperature"].apply(
-        lambda x: np.where(x > 1000, np.NaN, x)
+        lambda x: np.where(x > 1000, np.nan, x)
     )
 
     # Replace all values in ice_mask that are not 2, 3, or 4 with 2
@@ -37,11 +37,11 @@ def remove_fillers(
 
     # Replace all values in ice_velocity,, ice_thickness, and ice_mask that are less than or equal to 0 with NaN
     for column in ["ice_velocity", "ice_thickness", "ice_mask"]:
-        df[column] = df[column].apply(lambda x: np.where(x <= 0, np.NaN, x))
+        df[column] = df[column].apply(lambda x: np.where(x <= 0, np.nan, x))
 
     # Replace all negative precipitation values with NaN
     df["precipitation"] = df["precipitation"].apply(
-        lambda x: np.where(x < 0, np.NaN, x)
+        lambda x: np.where(x < 0, np.nan, x)
     )
 
     logging.info(f"\t✅Fillers removed: {df.shape}")

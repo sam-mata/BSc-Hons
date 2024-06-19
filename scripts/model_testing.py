@@ -13,7 +13,7 @@ def test_independant_models(
     target: pd.DataFrame,
     subset_size: int = 10000,
     test_split: float = 0.2,
-    plot: bool = False,
+    subset: bool = True,
 ) -> pd.DataFrame:
     """Tests target-independant models on a subset of the data and returns the results.
 
@@ -30,19 +30,20 @@ def test_independant_models(
         features, target, test_size=test_split, random_state=42
     )
 
-    random.seed(42)
-    subset_indices = random.sample(range(len(X_train)), subset_size)
-    X_train_subset, y_train_subset = (
-        X_train.iloc[subset_indices],
-        y_train.iloc[subset_indices],
-    )
+    if subset:
+        random.seed(42)
+        subset_indices = random.sample(range(len(X_train)), subset_size)
+        X_train, y_train = (
+            X_train.iloc[subset_indices],
+            y_train.iloc[subset_indices],
+        )
 
     results = {}
 
     for model in models:
         model_name = type(model).__name__
 
-        model.fit(X_train_subset, y_train_subset)
+        model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
 
         mse = mean_squared_error(y_test, y_pred)
