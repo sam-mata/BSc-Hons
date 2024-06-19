@@ -79,18 +79,15 @@ venv.bak/
 
 # Cython debug symbols
 cython_debug/
-*.aux
-*.aux
-*.aux
-*.bbl
-*.aux
+
+# Latex
 *.aux
 *.bbl
-reports/Project Proposal/proj_proposal.aux
-reports/Project Proposal/proj_proposal.bbl
-reports/Project Proposal/proj_proposal.blg
-reports/Project Proposal/proj_proposal.fdb_latexmk
-reports/Project Proposal/proj_proposal.fls
-reports/Project Proposal/proj_proposal.log
-reports/Project Proposal/proj_proposal.pdf
-reports/Project Proposal/proj_proposal.synctex.gz
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+
+# CatBoost
+catboost_info/
