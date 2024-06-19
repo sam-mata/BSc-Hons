@@ -1,5 +1,4 @@
-# Genetic Programming for Sea Level Rise
-
+# Evolutionary Learning for Antarctic Ice-Sheet Modelling
 This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
 
 > [!CAUTION]
