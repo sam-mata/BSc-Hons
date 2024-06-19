@@ -121,22 +121,14 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-
-def create_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Creates new features from existing columns in a dataframe.
-
-    Args:
-        df (pd.DataFrame): Dataframe to create features from.
-
-    Returns:
-        pd.DataFrame: Dataframe with new features included.
-    """
+def derive_features(df: pd.DataFrame) -> pd.DataFrame:
     # Distance to Pole
     df["distance_to_pole"] = np.sqrt((df["x"] - 4) ** 2 + df["y"] ** 2)  # offset x by 4
 
     # Rolling Standard Deviation
     for feature in ["precipitation", "air_temperature"]:
         df[f"{feature}_rolling_std"] = df[feature].rolling(window=3).std()
+        df[f"{feature}_rolling_std"] = df[f"{feature}_rolling_std"].fillna(0)
 
     # Log Transformation of air_temperature
     df["log_air_temperature"] = np.log(df["air_temperature"] + 1)
