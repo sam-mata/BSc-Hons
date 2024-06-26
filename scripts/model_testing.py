@@ -85,72 +85,47 @@ def split_data_by_year(features: pd.DataFrame, targets: pd.DataFrame, split_year
 
     return X_train, X_test, y_train, y_test
 
-
 def train_and_predict(model, X_train, y_train, X_test):
     model.fit(X_train, y_train)
     return model.predict(X_test)
 
-def test_dependent_models(models, features, targets, split_year=2050, subset=False, subset_size=10000):
-    """
-    Tests target-dependent models on data split by year and returns the results.
-
-    Args:
-        models (list): List of three models for ice_thickness, ice_mask, and ice_velocity
-        features (pd.DataFrame): Input features
-        targets (pd.DataFrame): Target variables
-        split_year (int): Year to split the data on
-        subset (bool): Whether to use a subset of the training data
-        subset_size (int): Size of the subset if used
-
-    Returns:
-        pd.DataFrame: DataFrame with model performance results
-    """
+import time 
+def test_dependent_models(models, features, targets, target_order, split_year=2050):
+    print(f"Starting test_dependent_models with split_year: {split_year}")
+    print(f"Features shape: {features.shape}")
+    print(f"Targets shape: {targets.shape}")
+    
     X_train, X_test, y_train, y_test = split_data_by_year(features, targets, split_year)
-
-    if subset:
-        X_train, _, y_train, _ = train_test_split(X_train, y_train, train_size=subset_size, random_state=42)
+    
+    print(f"Train set shape: {X_train.shape}")
+    print(f"Test set shape: {X_test.shape}")
 
     results = {}
     
-    # Predict ice thickness
-    thickness_model = models[0]
-    y_thickness_pred_train = train_and_predict(thickness_model, X_train, y_train['ice_thickness'], X_train)
-    y_thickness_pred_test = train_and_predict(thickness_model, X_train, y_train['ice_thickness'], X_test)
+    X_train_augmented = X_train.copy()
+    X_test_augmented = X_test.copy()
 
-    # Add predicted ice thickness to features
-    X_train_with_thickness = X_train.copy()
-    X_test_with_thickness = X_test.copy()
-    X_train_with_thickness['predicted_ice_thickness'] = y_thickness_pred_train
-    X_test_with_thickness['predicted_ice_thickness'] = y_thickness_pred_test
+    for target, model in zip(target_order, models):
+        print(f"\nTraining model for {target}")
+        print(f"Features used: {', '.join(X_train_augmented.columns)}")
+        start_time = time.time()
+        
+        # Train and predict
+        y_pred_train = train_and_predict(model, X_train_augmented, y_train[target], X_train_augmented)
+        y_pred_test = train_and_predict(model, X_train_augmented, y_train[target], X_test_augmented)
 
-    # Predict ice mask
-    mask_model = models[1]
-    y_mask_pred_train = train_and_predict(mask_model, X_train_with_thickness, y_train['ice_mask'], X_train_with_thickness)
-    y_mask_pred_test = train_and_predict(mask_model, X_train_with_thickness, y_train['ice_mask'], X_test_with_thickness)
+        # Add predictions to features for next model
+        X_train_augmented[f'predicted_{target}'] = y_pred_train
+        X_test_augmented[f'predicted_{target}'] = y_pred_test
 
-    # Add predicted ice mask to features
-    X_train_with_thickness_mask = X_train_with_thickness.copy()
-    X_test_with_thickness_mask = X_test_with_thickness.copy()
-    X_train_with_thickness_mask['predicted_ice_mask'] = y_mask_pred_train
-    X_test_with_thickness_mask['predicted_ice_mask'] = y_mask_pred_test
-
-    # Predict ice velocity
-    velocity_model = models[2]
-    y_velocity_pred = train_and_predict(velocity_model, X_train_with_thickness_mask, y_train['ice_velocity'], X_test_with_thickness_mask)
-
-    # Calculate metrics for each target
-    for target in ['ice_thickness', 'ice_mask', 'ice_velocity']:
-        if target == 'ice_thickness':
-            y_pred = y_thickness_pred_test
-        elif target == 'ice_mask':
-            y_pred = y_mask_pred_test
-        else:  # ice_velocity
-            y_pred = y_velocity_pred
-
-        mse = mean_squared_error(y_test[target], y_pred)
-        mae = mean_absolute_error(y_test[target], y_pred)
-        r2 = r2_score(y_test[target], y_pred)
+        # Calculate metrics
+        mse = mean_squared_error(y_test[target], y_pred_test)
+        mae = mean_absolute_error(y_test[target], y_pred_test)
+        r2 = r2_score(y_test[target], y_pred_test)
         
         results[target] = {"MSE": mse, "MAE": mae, "R2": r2}
+        
+        end_time = time.time()
+        print(f"Finished training {target} in {end_time - start_time:.2f} seconds")
 
     return pd.DataFrame(results).T
