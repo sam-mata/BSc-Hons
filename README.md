@@ -10,7 +10,15 @@ Climate change is causing sea levels to rise significantly, which considerably i
 
 ---
 
-## 2. Installation
+## 2. Gallery
+
+<img src="https://github.com/sam-mata/evolution-antarctica/assets/49130157/5dbfcb89-9da2-49e5-acef-8f4f5bc827ff" width="30%"></img> <img src="https://github.com/sam-mata/evolution-antarctica/assets/49130157/f2969be0-28ef-4662-8755-34d694ccd538" width="30%"></img> <img src="https://github.com/sam-mata/evolution-antarctica/assets/49130157/186b299f-9781-4c2d-92db-4b002a3dea67" width="30%"></img> 
+
+<img src="https://github.com/sam-mata/evolution-antarctica/assets/49130157/67651b2c-75fb-4a28-a3da-22f5600c7f81" width="45%"></img> <img src="https://github.com/sam-mata/evolution-antarctica/assets/49130157/217fdfe8-1401-4ccc-b0dd-4e71fc9db659" width="45%"></img> 
+
+---
+
+## 3. Installation
 
 After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
 After [**cloning the repository**](x-github-client://openRepo/https://github.com/sam-mata/sealevelai) or [**downloading a zip version**](https://github.com/sam-mata/SeaLevelAI/archive/refs/heads/main.zip), the project requires several libraries to be installed _(which are detailed in [`requirements.txt`](requirements.txt))_, this can be done with the following command:
@@ -21,9 +29,9 @@ After [**cloning the repository**](x-github-client://openRepo/https://github.com
 
 ---
 
-## 3. Structure
+## 4. Structure
 
-### 3.1 Data
+### 4.1 Data
 
 This project uses datasets provided by [**Professor Nicholas Golledge**](https://people.wgtn.ac.nz/nick.golledge).
 
@@ -51,35 +59,22 @@ Several notes of domain knowledge were left with the data, giving possible expec
 > [!WARNING]
 > Many features hold no measured value in some samples, with these being filled with `NaN` or `9.96920996839e+36`.
 
-### 3.2 Repository
+### 4.2 Repository
 
--   [`.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
--   [`data`](/data/) - Input datasets.
+-   [`/.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
+-   [`/data`](/data/) - Input datasets.
 -   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
--   [`model`](/model/) - Model training and testing.
--   [`scripts`](/scripts/) - Helper scripts for various utilities.
+-   [`/model`](/model/) - Model training and testing.
+-   [`/scripts`](/scripts/) - Helper scripts for various utilities.
 -   [`LICENSE`](LICENSE) - Standard MIT usage license.
 -   [`requirements.txt`](requirements.txt) - Required Python libraries and versions for correct usage.
+-   [`/out`](/out/) - Project artifacts *(images, gifs, charts etc)*
+-   [`/reports`](/reports/) - Project proposal, preliminary report, and final report.
+-   [`model-testing.ipynb`](model-testing.ipynb) - Initial model testing.
 
 ---
 
-## 5. Usage
-
-> [!NOTE]
-> This section is under construction.
-
-This project utlizes several scripts and notebooks:
-
-> [!NOTE]
-> A helper script, [`main.py`](/scripts/main.py), is also available for easier utility, this can be run with:
->
-> ```bash
-> python scripts/main.py
-> ```
-
----
-
-## 6. Authorship
+## 5. Authorship
 
 All project development completed by [**Sam Mata**](https://www.sammata.nz/), with supervision from [**Dr Bach Nguyen**](https://people.wgtn.ac.nz/bach.nguyen) and [**Dr Bing Xue**](https://people.wgtn.ac.nz/bing.xue).
 
