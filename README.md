@@ -53,33 +53,20 @@ Several notes of domain knowledge were left with the data, giving possible expec
 
 ### 3.2 Repository
 
--   [`.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
--   [`data`](/data/) - Input datasets.
+-   [`/.github`](/.github) - Directory containing repository management tools, including issue templates and formatting checks.
+-   [`/data`](/data/) - Input datasets.
 -   [`EDA.ipynb`](EDA.ipynb) - Exploratory-data-analysis _(EDA)_
--   [`model`](/model/) - Model training and testing.
--   [`scripts`](/scripts/) - Helper scripts for various utilities.
+-   [`/model`](/model/) - Model training and testing.
+-   [`/scripts`](/scripts/) - Helper scripts for various utilities.
 -   [`LICENSE`](LICENSE) - Standard MIT usage license.
 -   [`requirements.txt`](requirements.txt) - Required Python libraries and versions for correct usage.
+-   [`/out`](/out/) - Project artifacts *(images, gifs, charts etc)*
+-   [`/reports`](/reports/) - Project proposal, preliminary report, and final report.
+-   [`model-testing.ipynb`](model-testing.ipynb) - Initial model testing.
 
 ---
 
-## 5. Usage
-
-> [!NOTE]
-> This section is under construction.
-
-This project utlizes several scripts and notebooks:
-
-> [!NOTE]
-> A helper script, [`main.py`](/scripts/main.py), is also available for easier utility, this can be run with:
->
-> ```bash
-> python scripts/main.py
-> ```
-
----
-
-## 6. Authorship
+## 4. Authorship
 
 All project development completed by [**Sam Mata**](https://www.sammata.nz/), with supervision from [**Dr Bach Nguyen**](https://people.wgtn.ac.nz/bach.nguyen) and [**Dr Bing Xue**](https://people.wgtn.ac.nz/bing.xue).
 
