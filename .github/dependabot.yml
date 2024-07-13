@@ -8,3 +8,7 @@ updates:
           - 'sam-mata'
       labels:
           - 'structural'
+      groups:
+           pip-dependencies:
+             patterns:
+               - "*"
