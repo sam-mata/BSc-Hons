@@ -109,8 +109,17 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     # Apply a robust scaler to 'ocean_temperature', 'precipitation', and 'ice_velocity'
     scaler = RobustScaler()
-    df[["ocean_temperature", "precipitation", "ice_velocity"]] = scaler.fit_transform(
-        df[["ocean_temperature", "precipitation", "ice_velocity"]]
+    df[["ocean_temperature", "precipitation", "ice_velocity", "bedrock_elevation"]] = (
+        scaler.fit_transform(
+            df[
+                [
+                    "ocean_temperature",
+                    "precipitation",
+                    "ice_velocity",
+                    "bedrock_elevation",
+                ]
+            ]
+        )
     )
 
     # Apply a min-max scaler to 'air_temperature' and 'ice_thickness'
@@ -121,7 +130,11 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+
 def derive_features(df: pd.DataFrame) -> pd.DataFrame:
+    # Bedrock below Sea Level
+    df["bedrock_below_sea_level"] = df["bedrock_elevation"] < 0
+
     # Distance to Pole
     df["distance_to_pole"] = np.sqrt((df["x"] - 4) ** 2 + df["y"] ** 2)  # offset x by 4
 

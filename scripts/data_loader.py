@@ -20,6 +20,7 @@ def load_data(data_dir: str):
     columns = [
         "x",
         "y",
+        "bedrock_elevation",
         "ice_thickness",
         "ice_velocity",
         "ice_mask",
@@ -30,7 +31,7 @@ def load_data(data_dir: str):
 
     dfs = []
     for year in range(2015, 2101):
-        file_path = f"{data_dir}/vars-{year}.txt"
+        file_path = f"{data_dir}/vars-{year}-lowRes.txt"
         if os.path.exists(file_path):
             df = pd.read_csv(file_path, sep="\t", header=None, names=columns)
             df["year"] = year
