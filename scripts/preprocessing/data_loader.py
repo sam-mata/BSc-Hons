@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 import logging
+from scripts.preprocessing.preprocessing import preprocess_data, derive_features
+
 
 """Functions for loading data from the data directory and splitting it into features and targets.
 """
@@ -60,3 +62,10 @@ def split_features_targets(
     targets: pd.DataFrame = dataframe[target_names]
     features: pd.DataFrame = dataframe.drop(columns=target_names)
     return features, targets
+
+
+def load_preprocessed_dataset():
+    df = load_data("data")
+    df = preprocess_data(df)
+    df = derive_features(df)
+    return df
