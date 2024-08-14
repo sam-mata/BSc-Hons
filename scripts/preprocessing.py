@@ -95,6 +95,7 @@ def fill_missing(df: pd.DataFrame, filltype: str = "mean") -> pd.DataFrame:
     logging.info("\t✅Missing values filled")
     return df
 
+
 def flip_data(dataframe: pd.DataFrame):
     """Flips the data vertically.
 
@@ -109,6 +110,7 @@ def flip_data(dataframe: pd.DataFrame):
     flipped["y"] = dataframe["y"].max() - dataframe["y"]
     return flipped
 
+
 def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     # Convert the 'x' and 'y' coordinates into integer indexes with the center at (0, 0)
@@ -120,7 +122,7 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     # Calculate the x and y indexes based on the coordinates
     df["x"] = (((df["x"] - MIN_X) / CELL_SIZE) - 25).astype(int)
-    df["y"] = (((df["y"] - MIN_Y) / CELL_SIZE) - 50).astype(int) 
+    df["y"] = (((df["y"] - MIN_Y) / CELL_SIZE) - 50).astype(int)
 
     # Apply a robust scaler to 'ocean_temperature', 'precipitation', 'bedrock-elevation', and 'ice_velocity'
     scaler = RobustScaler()
