@@ -1,25 +1,16 @@
 import pandas as pd
+import numpy as np
+import glob
 import os
-import logging
-from scripts.preprocessing.preprocessing import preprocess_data, derive_features
+from scripts.preprocessing.preprocessor import preprocess_data, derive_features
 
 
-"""Functions for loading data from the data directory and splitting it into features and targets.
-"""
+def load_data(data_folder, file_pattern="vars-*-lowRes.txt"):
+    all_files = glob.glob(os.path.join(data_folder, file_pattern))
+    data_list = []
+    years = []
 
-
-def load_data(data_dir: str):
-    """Loads all matching files in given directory into a single dataframe.
-
-    Args:
-        data_dir (str): Path to directory containing data files.
-
-    Returns:
-        pd.DataFrame: DataFrame of data.
-    """
-
-    logging.info(f"\n📦Loading data from {data_dir}")
-    columns = [
+    column_names = [
         "x",
         "y",
         "bedrock_elevation",
@@ -31,41 +22,84 @@ def load_data(data_dir: str):
         "ocean_temperature",
     ]
 
-    dfs = []
-    for year in range(2015, 2101):
-        file_path = f"{data_dir}/vars-{year}-lowRes.txt"
-        if os.path.exists(file_path):
-            df = pd.read_csv(file_path, sep="\t", header=None, names=columns)
-            df["year"] = year
-            dfs.append(df)
-        else:
-            logging.warning(f"\t⚠️File not found: {file_path}")
-
-    dataframe: pd.DataFrame = pd.concat(dfs, ignore_index=True)
-    logging.info(f"\t📊Data Loaded: {dataframe.shape}")
-    return dataframe
+    for filename in all_files:
+        df = pd.read_csv(filename, sep="\t", header=None, names=column_names)
+        year = int(os.path.basename(filename).split("-")[1])
+        years.append(year)
+        df["year"] = year
+        data_list.append(df)
+    return pd.concat(data_list, ignore_index=True)
 
 
-def split_features_targets(
-    dataframe: pd.DataFrame,
-    target_names: list = ["ice_thickness", "ice_velocity", "ice_mask"],
-):
-    """Split a dataframe into features and targets.
+def convert_and_split(df):
+    # Convert 'NaN' strings to np.nan
+    df = df.replace("NaN", np.nan)
 
-    Args:
-        dataframe (pd.DataFrame): DataFrame to be split.
-        target_names (list): List of target column names to split by.
+    # Define input features and target variables
+    input_features = [
+        "x",
+        "y",
+        "bedrock_elevation",
+        "precipitation",
+        "air_temperature",
+        "ocean_temperature",
+        "year",
+    ]
+    target_variables = ["ice_thickness", "ice_velocity", "ice_mask"]
 
-    Returns:
-        [pd.DataFrame, pd.DataFrame]: Tuple of (features, targets) dataframes.
-    """
-    targets: pd.DataFrame = dataframe[target_names]
-    features: pd.DataFrame = dataframe.drop(columns=target_names)
-    return features, targets
+    # Convert columns to appropriate types
+    float_columns = [
+        "bedrock_elevation",
+        "precipitation",
+        "air_temperature",
+        "ocean_temperature",
+    ] + target_variables
+    for col in float_columns:
+        df[col] = df[col].astype(float)
+
+    # Separate features and targets
+    X = df[input_features]
+    y = df[target_variables]
+
+    return X, y
 
 
-def load_preprocessed_dataset():
+def split_data_by_year(X, y, test_size=0.2, random_state=42):
+    unique_years = sorted(X["year"].unique())
+    n_test_years = int(len(unique_years) * test_size)
+
+    test_years = unique_years[-n_test_years:]  # Take the last n_test_years as test set
+    train_years = unique_years[:-n_test_years]  # Take the rest as train set
+
+    X_train = X[X["year"].isin(train_years)]
+    X_test = X[X["year"].isin(test_years)]
+    y_train = y[X["year"].isin(train_years)]
+    y_test = y[X["year"].isin(test_years)]
+
+    return X_train, X_test, y_train, y_test
+
+
+def get_train_test_splits(test_size=0.2):
     df = load_data("data")
+
     df = preprocess_data(df)
-    #df = derive_features(df)
-    return df
+
+    X, y = convert_and_split(df)
+    X, y = derive_features(X, y)
+    X_train, X_test, y_train, y_test = split_data_by_year(X, y, test_size=test_size)
+
+    print(f"Train years: {X_train['year'].min()} to {X_train['year'].max()}")
+    print(f"Test years: {X_test['year'].min()} to {X_test['year'].max()}")
+
+    return X_train, X_test, y_train, y_test
+
+
+def get_combined_dataset(X_train, y_train, X_test, y_test):
+    X_total = pd.concat([X_train, X_test], axis=0, ignore_index=True)
+    y_total = pd.concat([y_train, y_test], axis=0, ignore_index=True)
+    X_total["set"] = ["train"] * len(X_train) + ["test"] * len(X_test)
+    combined = X_total.copy()
+    for col in y_total.columns:
+        if col not in combined.columns:
+            combined[col] = y_total[col]
+    return combined

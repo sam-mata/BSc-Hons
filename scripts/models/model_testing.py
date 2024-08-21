@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.base import clone
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import cross_val_predict
+from IPython.display import display
 
 
 def fit_and_evaluate_model(
@@ -31,6 +32,7 @@ def fit_and_evaluate_model(
     def evaluate(y_true, y_pred):
         return {
             "MSE": mean_squared_error(y_true, y_pred),
+            "RMSE": np.sqrt(mean_squared_error(y_true, y_pred)),
             "MAE": mean_absolute_error(y_true, y_pred),
             "R2": r2_score(y_true, y_pred),
         }
@@ -46,7 +48,7 @@ def fit_and_evaluate_model(
                             evaluate(y_train[col], y_pred[:, i])[metric]
                             for i, col in enumerate(y_train.columns)
                         ]
-                        for metric in ["MSE", "MAE", "R2"]
+                        for metric in ["MSE", "RMSE", "MAE", "R2"]
                     },
                 }
             )
@@ -61,7 +63,7 @@ def fit_and_evaluate_model(
                             evaluate(y_test[col], y_pred[:, i])[metric]
                             for i, col in enumerate(y_test.columns)
                         ]
-                        for metric in ["MSE", "MAE", "R2"]
+                        for metric in ["MSE", "RMSE", "MAE", "R2"]
                     },
                 }
             )
@@ -80,3 +82,16 @@ def fit_and_evaluate_model(
         results = pd.DataFrame(results)
 
     return results
+
+def test_models(models, multi, cv, refined, X_train, y_train, X_test, y_test):
+    all_results = {}
+    for name, model in models:
+        print(f"Evaluating {name} for {"refined" if refined else "broad"} {"multi" if multi else "single"}-target regression testing...")
+        results = fit_and_evaluate_model(
+            model, X_train, y_train, X_test, y_test, multi=multi, cv=cv
+        )
+        all_results[name] = results
+
+    for name, results in all_results.items():
+        print(f"\n{name}:")
+        display(results)
