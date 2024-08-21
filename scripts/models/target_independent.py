@@ -4,7 +4,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.base import clone
 
-
 def test_independant_models(
     models: list, features: pd.DataFrame, target: pd.Series, n_splits: int = 5
 ) -> pd.DataFrame:
