@@ -47,14 +47,13 @@ def preprocess_data(df):
     return df
 
 
-def apply_minmax_scaling(X, y, exclude_columns=["year"]):
+def apply_minmax_scaling(X, y):
     """
     Apply min-max scaling to X and y without leaking information between sets.
 
     Parameters:
     X (pd.DataFrame): Feature set
     y (pd.DataFrame): Target set
-    exclude_columns (list): Columns to exclude from scaling (e.g., 'year')
 
     Returns:
     X_scaled (pd.DataFrame): Scaled feature set
@@ -71,7 +70,7 @@ def apply_minmax_scaling(X, y, exclude_columns=["year"]):
     y_scaler = MinMaxScaler()
 
     # Scale X
-    columns_to_scale = [col for col in X_copy.columns if col not in exclude_columns]
+    columns_to_scale = [col for col in X_copy.columns]
     X_copy[columns_to_scale] = X_scaler.fit_transform(X_copy[columns_to_scale])
 
     # Scale y
