@@ -22,10 +22,11 @@ def preprocess_data(df):
         df[col] = df[col].astype(float)
     for col in int_columns:
         df[col] = df[col].astype(int)
-
-    # 2. Convert x and y to cell coordinates
-    df["x"] = (df["x"] - df["x"].min()) // (df["x"].max() - df["x"].min()) * 50
-    df["y"] = (df["y"] - df["y"].min()) // (df["y"].max() - df["y"].min()) * 50
+        
+        
+    # 2. Convert "x" and "y" to integer divisions of 121600
+    df["x"] = (df["x"] / 121600).astype(int)
+    df["y"] = (df["y"] / 121600).astype(int)
 
     # 3. Replace any ice_mask values that aren't 2, 3, or 4, with 2
     df.loc[~df["ice_mask"].isin([2, 3, 4]), "ice_mask"] = 2
@@ -58,8 +59,7 @@ def apply_minmax_scaling(X, y):
     Returns:
     X_scaled (pd.DataFrame): Scaled feature set
     y_scaled (pd.DataFrame): Scaled target set
-    X_scaler (MinMaxScaler): Scaler for X
-    y_scaler (MinMaxScaler): Scaler for y
+    feature_ranges (dict): Dictionary containing min and max values for each feature
     """
     # Create copies to avoid modifying the original data
     X_copy = X.copy()
@@ -68,46 +68,26 @@ def apply_minmax_scaling(X, y):
     # Initialize scalers
     X_scaler = MinMaxScaler()
     y_scaler = MinMaxScaler()
+    
+    binary_columns = X.columns[X.isin([0, 1]).all()].tolist()
 
     # Scale X
-    columns_to_scale = [col for col in X_copy.columns]
+    columns_to_scale = [col for col in X_copy.columns if col not in binary_columns]
     X_copy[columns_to_scale] = X_scaler.fit_transform(X_copy[columns_to_scale])
 
     # Scale y
     y_copy[:] = y_scaler.fit_transform(y_copy)
 
-    return X_copy, y_copy, X_scaler, y_scaler
+    # Create dictionary with feature ranges
+    feature_ranges = {}
+    for col in columns_to_scale:
+        feature_ranges[col] = (X[col].min(), X[col].max())
+    
+    # Add y column(s) to feature_ranges
+    for col in y.columns:
+        feature_ranges[col] = (y[col].min(), y[col].max())
 
-
-def inverse_minmax_scaling(
-    X_scaled, y_scaled, X_scaler, y_scaler, exclude_columns=["year"]
-):
-    """
-    Inverse the min-max scaling applied to X and y.
-
-    Parameters:
-    X_scaled (pd.DataFrame): Scaled feature set
-    y_scaled (pd.DataFrame): Scaled target set
-    X_scaler (MinMaxScaler): Scaler used for X
-    y_scaler (MinMaxScaler): Scaler used for y
-    exclude_columns (list): Columns that were excluded from scaling (e.g., 'year')
-
-    Returns:
-    X (pd.DataFrame): Original feature set
-    y (pd.DataFrame): Original target set
-    """
-    # Create copies to avoid modifying the input data
-    X = X_scaled.copy()
-    y = y_scaled.copy()
-
-    # Inverse transform X
-    columns_to_scale = [col for col in X.columns if col not in exclude_columns]
-    X[columns_to_scale] = X_scaler.inverse_transform(X[columns_to_scale])
-
-    # Inverse transform y
-    y[:] = y_scaler.inverse_transform(y)
-
-    return X, y
+    return X_copy, y_copy, feature_ranges
 
 
 def derive_features(X, y):
@@ -128,19 +108,45 @@ def derive_features(X, y):
 
     combined = pd.concat([X_derived, y_derived], axis=1)
 
-    center_x, center_y = 25, 25
+    # 1. Distance to pole
+    center_x = (combined["x"].min() + combined["x"].max()) / 2
+    center_y = (combined["y"].min() + combined["y"].max()) / 2
     combined["distance_to_pole"] = np.sqrt(
         (combined["x"] - center_x) ** 2 + (combined["y"] - center_y) ** 2
     )
 
+    # 2. Bedrock below sea level
     combined["bedrock_below_sea_level"] = (combined["bedrock_elevation"] < 0).astype(
         int
     )
+    
+    # 3. Temperature difference
+    combined["temperature_difference"] = combined["ocean_temperature"] - combined["air_temperature"]
+    
+    # 4. Log of Air Temperature
+    combined["log_air_temperature"] = np.log(combined["air_temperature"])
+    
+    # 5. Rolling std of precipitation
+    combined["rolling_std_precipitation"] = combined["precipitation"].rolling(window=3).std()
+    combined["rolling_std_precipitation"] = combined["rolling_std_precipitation"].fillna(0)
 
+    
+    # 6. Rolling std of air temperature
+    combined["rolling_std_air_temperature"] = combined["air_temperature"].rolling(window=3).std()
+    combined["rolling_std_air_temperature"] = combined["rolling_std_air_temperature"].fillna(0)
+    
+    # 7. One-hot encode any air temperature values in the lower 45%
+    combined["air_temperature_low_45"] = (combined["air_temperature"] < np.percentile(combined["air_temperature"], 45)).astype(int)
+    
     # Separate the combined dataframe back into X and y
     X_columns = X.columns.tolist() + [
         "distance_to_pole",
         "bedrock_below_sea_level",
+        "temperature_difference",
+        "log_air_temperature",
+        "rolling_std_precipitation",
+        "rolling_std_air_temperature",
+        "air_temperature_low_45",
     ]
     y_columns = y.columns.tolist()
 

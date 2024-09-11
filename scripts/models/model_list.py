@@ -29,9 +29,9 @@ from sklearn.neural_network import MLPRegressor
 #from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.multioutput import MultiOutputRegressor
-#from xgboost import XGBRegressor
-#from lightgbm import LGBMRegressor
-# from catboost import CatBoostRegressor
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
 
 def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPTH = 10, MIN_SAMPLES_SPLIT = 5, ALPHA = 0.1, LEARNING_RATE = 0.01, N_JOBS = -1):
         
@@ -96,9 +96,9 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
         ("MLPRegressor", MLPRegressor(max_iter=MAX_ITER, random_state=RANDOM_STATE)),
         #("GaussianProcessRegressor", GaussianProcessRegressor(kernel=C(1.0, (1e-3, 1e3)) * RBF(10, (1e-2, 1e2)), random_state=RANDOM_STATE),),
         ("PLSRegression", PLSRegression(n_components=2, max_iter=MAX_ITER)),
-        #("XGBoost",XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,),),
-        #("LightGBM",LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,),),
-        #("CatBoost", CatBoostRegressor(n_estimators=N_ESTIMATORS, learning_rate=LEARNING_RATE, random_state=RANDOM_STATE, verbose=False,),),
+        ("XGBoost",XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,),),
+        ("LightGBM",LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,),),
+        ("CatBoost", CatBoostRegressor(n_estimators=N_ESTIMATORS, learning_rate=LEARNING_RATE, random_state=RANDOM_STATE, verbose=False,),),
     ]
 
     REFINED_SINGLE_TARGET_MODELS = [
@@ -142,7 +142,7 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
             "Linear Regression",
             LinearRegression(n_jobs=-1)
         ),
-        #("LightGBM",LGBMRegressor(n_estimators=N_ESTIMATORS*5,learning_rate=LEARNING_RATE,max_depth=MAX_DEPTH,min_child_samples=MIN_SAMPLES_SPLIT,random_state=RANDOM_STATE,n_jobs=-1),),
+        ("LightGBM",LGBMRegressor(n_estimators=N_ESTIMATORS*5,learning_rate=LEARNING_RATE,max_depth=MAX_DEPTH,min_child_samples=MIN_SAMPLES_SPLIT,random_state=RANDOM_STATE,n_jobs=-1),),
         (
             "GradientBoostingRegressor",
             GradientBoostingRegressor(
@@ -194,9 +194,9 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
             "Multi-target MLPRegressor",
             MLPRegressor(max_iter=MAX_ITER, random_state=RANDOM_STATE),
         ),
-        #("Multi-target XGBoost",MultiOutputRegressor(XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
-        #("Multi-target LightGBM",MultiOutputRegressor(LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
-        #("Multi-target CatBoost",MultiOutputRegressor(CatBoostRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,verbose=False,)),),
+        ("Multi-target XGBoost",MultiOutputRegressor(XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
+        ("Multi-target LightGBM",MultiOutputRegressor(LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
+        ("Multi-target CatBoost",MultiOutputRegressor(CatBoostRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,verbose=False,)),),
     ]
 
     REFINED_MULTI_TARGET_MODELS = [
@@ -210,8 +210,8 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
         ),
         ("Multi-target Ridge", Ridge(alpha=ALPHA, random_state=RANDOM_STATE)),
         ("Multi-target Linear Regression", LinearRegression()),
-        #("Multi-target XGBoost",MultiOutputRegressor(XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
-        #("Multi-target LightGBM",MultiOutputRegressor(LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
+        ("Multi-target XGBoost",MultiOutputRegressor(XGBRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
+        ("Multi-target LightGBM",MultiOutputRegressor(LGBMRegressor(n_estimators=N_ESTIMATORS,learning_rate=LEARNING_RATE,random_state=RANDOM_STATE,)),),
         (
             "Multi-target GradientBoosting",
             MultiOutputRegressor(
