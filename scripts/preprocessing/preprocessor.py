@@ -69,10 +69,8 @@ def apply_minmax_scaling(X, y):
     X_scaler = MinMaxScaler()
     y_scaler = MinMaxScaler()
     
-    binary_columns = X.columns[X.isin([0, 1]).all()].tolist()
-
     # Scale X
-    columns_to_scale = [col for col in X_copy.columns if col not in binary_columns]
+    columns_to_scale = [col for col in X_copy.columns ]
     X_copy[columns_to_scale] = X_scaler.fit_transform(X_copy[columns_to_scale])
 
     # Scale y
