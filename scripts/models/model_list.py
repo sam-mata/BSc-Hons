@@ -130,29 +130,29 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
                 random_state=RANDOM_STATE
             )
         ),
-        (
-            "AdaBoostRegressor",
-            AdaBoostRegressor(
-                n_estimators=N_ESTIMATORS*5,
-                learning_rate=LEARNING_RATE,
-                random_state=RANDOM_STATE,
-            ),
-        ),
+        # (
+        #     "AdaBoostRegressor",
+        #     AdaBoostRegressor(
+        #         n_estimators=N_ESTIMATORS*5,
+        #         learning_rate=LEARNING_RATE,
+        #         random_state=RANDOM_STATE,
+        #     ),
+        # ),
         (
             "Linear Regression",
             LinearRegression(n_jobs=-1)
         ),
         ("LightGBM",LGBMRegressor(n_estimators=N_ESTIMATORS*5,learning_rate=LEARNING_RATE,max_depth=MAX_DEPTH,min_child_samples=MIN_SAMPLES_SPLIT,random_state=RANDOM_STATE,n_jobs=-1),),
-        (
-            "GradientBoostingRegressor",
-            GradientBoostingRegressor(
-                n_estimators=N_ESTIMATORS*5,
-                learning_rate=LEARNING_RATE,
-                max_depth=MAX_DEPTH,
-                min_samples_split=MIN_SAMPLES_SPLIT,
-                random_state=RANDOM_STATE,
-            ),
-        ),
+        # (
+        #     "GradientBoostingRegressor",
+        #     GradientBoostingRegressor(
+        #         n_estimators=N_ESTIMATORS*5,
+        #         learning_rate=LEARNING_RATE,
+        #         max_depth=MAX_DEPTH,
+        #         min_samples_split=MIN_SAMPLES_SPLIT,
+        #         random_state=RANDOM_STATE,
+        #     ),
+        # ),
         (
             "KNeighborsRegressor",
             KNeighborsRegressor(n_neighbors=200, weights='distance', n_jobs=-1)

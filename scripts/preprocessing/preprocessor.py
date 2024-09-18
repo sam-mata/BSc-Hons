@@ -136,6 +136,17 @@ def derive_features(X, y):
     # 7. One-hot encode any air temperature values in the lower 45%
     combined["air_temperature_low_45"] = (combined["air_temperature"] < np.percentile(combined["air_temperature"], 45)).astype(int)
     
+    # 8. Bedrock slopes
+    combined['bedrock_slope_x'] = combined.groupby('y')['bedrock_elevation'].diff().fillna(0)
+    combined['bedrock_slope_y'] = combined.groupby('x')['bedrock_elevation'].diff().fillna(0)
+    combined['bedrock_slope_magnitude'] = np.sqrt(combined['bedrock_slope_x']**2 + combined['bedrock_slope_y']**2)
+    
+    # 9. Surface mass balance
+    combined['surface_mass_balance'] = combined['precipitation'] - combined['air_temperature'] * 1 # Melting factor of 1 mm / d-C
+    
+    # 10. Years since start
+    combined['years_since_start'] = combined['year'] - combined['year'].min()
+
     # Separate the combined dataframe back into X and y
     X_columns = X.columns.tolist() + [
         "distance_to_pole",
@@ -145,6 +156,11 @@ def derive_features(X, y):
         "rolling_std_precipitation",
         "rolling_std_air_temperature",
         "air_temperature_low_45",
+        "bedrock_slope_x",
+        "bedrock_slope_y",
+        "bedrock_slope_magnitude",
+        "surface_mass_balance",
+        "years_since_start",
     ]
     y_columns = y.columns.tolist()
 

@@ -1,137 +1,212 @@
+# Constants
+TARGET = 'ice_velocity'  # The target variable to predict
+POPULATION = 15  # Number of individuals in the population
+
+import numpy as np
 import operator
 import random
-import functools
-import numpy as np
-import pandas as pd
-from deap import algorithms, base, creator, tools, gp
-from scripts.preprocessing.data_loader import get_train_test_splits, get_combined_dataset
+from functools import partial
+from deap import algorithms, base, creator, gp, tools
+from scripts.preprocessing.data_loader import get_train_test_splits
+from scripts.preprocessing.preprocessor import apply_minmax_scaling
+from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from scripts.visualisations.plotting import plot_averaged_heatmap
+from sklearn.model_selection import KFold
+import matplotlib.pyplot as plt
+import networkx as nx
 
-def protected_div(x, y):
-    return np.divide(x, y, out=np.zeros_like(x), where=y!=0)
+# Load the data
+X_train, X_test, y_train, y_test = get_train_test_splits(test_size=0.2)
+X_train, y_train, train_scales = apply_minmax_scaling(X_train, y_train)
+X_test, y_test, test_scales = apply_minmax_scaling(X_test, y_test)
 
-def if_then_else(condition, output1, output2):
-    return output1 if condition else output2
-
-def constant():
-    return random.uniform(0, 1)
-
-def define_primitives(X):
-    pset = gp.PrimitiveSet("MAIN", X.shape[1])
+def plot_tree(expr):
+    nodes, edges, labels = gp.graph(expr)
     
-    pset.addPrimitive(operator.add, 2)
-    pset.addPrimitive(operator.sub, 2)
-    pset.addPrimitive(operator.mul, 2)
-    pset.addPrimitive(max, 2)
-    pset.addPrimitive(if_then_else, 3)
+    if len(nodes) == 1:
+        print(expr)
+        return
     
-    pset.addEphemeralConstant("constant", functools.partial(constant))
+    if not nodes:  # Handle the case of a single terminal
+        plt.figure(figsize=(6, 4))
+        plt.text(0.5, 0.5, str(expr), ha='center', va='center', fontsize=12, bbox=dict(facecolor='lightblue', edgecolor='black', boxstyle='round,pad=0.5'))
+        plt.title("Best Individual (Single Node)")
+        plt.axis('off')
+        plt.tight_layout()
+        plt.savefig('best_individual_syntax_tree.png', dpi=300, bbox_inches='tight')
+        plt.close()
+        return
+
+    # Create a directed graph
+    g = nx.DiGraph()
+    g.add_edges_from(edges)
     
-    # Rename arguments
-    feature_names = ['x', 'y', 'bedrock_elevation', 'precipitation', 'air_temperature',
-                    'ocean_temperature', 'year', 'distance_to_pole',
-                    'bedrock_below_sea_level']
+    # Create a hierarchical layout
+    pos = nx.spring_layout(g, k=0.5, iterations=50)
     
-    rename_dict = {f"ARG{i}": name for i, name in enumerate(feature_names)}
-    pset.renameArguments(**rename_dict)
-    return pset
-
-def evaluate(individual, pset, X, y):
-    func = gp.compile(expr=individual, pset=pset)
-    predictions = np.array([func(*x) for x in X])
-    predictions = np.clip(predictions, 0, 1)
-    mse = mean_squared_error(y, predictions)
-    return mse,
-
-def setup_toolbox(pset):
-    creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
-    creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
-
-    toolbox = base.Toolbox()
-    toolbox.register("expr", gp.genHalfAndHalf, pset=pset, min_=1, max_=8)
-    toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-    toolbox.register("compile", gp.compile, pset=pset)
-    return toolbox
-
-def run_gp(X, y, n_gen=50, pop_size=500, cxpb=0.8, mutpb=0.2):
-    pset = define_primitives(X)
-    toolbox = setup_toolbox(pset)
+    # Find the root node (the one with in-degree 0)
+    root = [node for node in g.nodes() if g.in_degree(node) == 0][0]
     
-    toolbox.register("evaluate", evaluate, pset=pset, X=X, y=y)
-    toolbox.register("select", tools.selTournament, tournsize=7)
-    toolbox.register("mate", gp.cxOnePoint)
-    toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
-    toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
+    # Perform a breadth-first search to assign levels
+    bfs_edges = list(nx.bfs_edges(g, root))
+    levels = {root: 0}
+    for parent, child in bfs_edges:
+        levels[child] = levels[parent] + 1
+    
+    # Adjust y-coordinate based on levels
+    max_level = max(levels.values())
+    for node in pos:
+        pos[node] = (pos[node][0], 1 - levels[node] / max_level)
+    
+    plt.figure(figsize=(12, 8))
+    
+    # Draw nodes
+    nx.draw_networkx_nodes(g, pos, node_size=2000, node_color='lightblue', edgecolors='black')
+    
+    # Draw edges
+    nx.draw_networkx_edges(g, pos, edge_color='gray', arrows=True, arrowsize=20)
+    
+    # Draw labels
+    nx.draw_networkx_labels(g, pos, labels, font_size=8, font_weight='bold')
+    
+    plt.title("Best Individual (Syntax Tree)")
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig('best_individual_syntax_tree.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
-    pop = toolbox.population(n=pop_size)
+def protected_div(left, right):
+    try:
+        return left / right if abs(right) > 1e-6 else 1.0
+    except ZeroDivisionError:
+        return 1.0
+
+def if_then_else(condition, out1, out2):
+    return out1 if condition > 0 else out2
+
+# Define the primitive set (function set)
+pset = gp.PrimitiveSet("MAIN", X_train.shape[1])
+pset.addPrimitive(operator.add, 2)
+pset.addPrimitive(operator.sub, 2)
+pset.addPrimitive(operator.mul, 2)
+pset.addPrimitive(protected_div, 2)
+pset.addPrimitive(max, 2)
+pset.addPrimitive(if_then_else, 3)
+pset.addEphemeralConstant("rand", partial(random.uniform, -1, 1))
+
+# Rename the arguments
+feature_names = X_train.columns.tolist()
+for i, name in enumerate(feature_names):
+    pset.renameArguments(**{f'ARG{i}': name})
+
+# Define fitness and individual
+creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
+creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMin)
+
+# Define the toolbox
+toolbox = base.Toolbox()
+toolbox.register("expr", gp.genHalfAndHalf, pset=pset, min_=1, max_=8)
+toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+toolbox.register("compile", gp.compile, pset=pset)
+
+# Define evaluation function
+def evalSymbRegCV(individual, points, targets, cv=5):
+    func = toolbox.compile(expr=individual)
+    scores = []
+    kf = KFold(n_splits=cv, shuffle=False)
+    
+    for train_index, val_index in kf.split(points):
+        X_train, X_val = points.iloc[train_index], points.iloc[val_index]
+        y_train, y_val = targets.iloc[train_index], targets.iloc[val_index]
+        
+        try:
+            pred = np.array([func(*p) for p in X_val.values])
+            rmse = np.sqrt(np.mean((pred - y_val.values.ravel())**2))
+            scores.append(rmse)
+        except Exception as e:
+            scores.append(float('inf'))
+    
+    avg_rmse = np.mean(scores)
+    complexity = len(individual)
+    return avg_rmse,
+
+toolbox.register("evaluate", evalSymbRegCV, points=X_train, targets=y_train[TARGET])
+toolbox.register("select", tools.selTournament, tournsize=7)
+toolbox.register("mate", gp.cxOnePoint)
+toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
+toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)
+
+# Limit the tree depth
+toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=8))
+toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=8))
+
+# Define the main function
+def main():
+    pop = toolbox.population(n=POPULATION)
     hof = tools.HallOfFame(1)
-    
-    stats_fit = tools.Statistics(lambda ind: ind.fitness.values)
-    stats_size = tools.Statistics(len)
-    mstats = tools.MultiStatistics(fitness=stats_fit, size=stats_size)
-    mstats.register("avg", np.mean)
-    mstats.register("std", np.std)
-    mstats.register("min", np.min)
-    mstats.register("max", np.max)
-    
-    pop, log = algorithms.eaSimple(pop, toolbox, cxpb, mutpb, n_gen, stats=mstats, halloffame=hof, verbose=True)
-    
+    stats = tools.Statistics(lambda ind: ind.fitness.values)
+    stats.register("avg", np.mean)
+    stats.register("std", np.std)
+    stats.register("min", np.min)
+    stats.register("max", np.max)
+
+    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.8, mutpb=0.2, ngen=50, 
+                                    stats=stats, halloffame=hof, verbose=True)
+
     return pop, log, hof
 
-def evaluate_model(model, X, y):
-    func = gp.compile(expr=model, pset=define_primitives(X))
-    predictions = np.array([func(*x) for x in X])
-    predictions = np.clip(predictions, 0, 1)
-    mse = mean_squared_error(y, predictions)
+# Function to calculate metrics
+def calculate_metrics(y_true, y_pred):
+    mse = mean_squared_error(y_true, y_pred)
     rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y, predictions)
-    r2 = r2_score(y, predictions)
-    return mse, rmse, mae, r2, predictions
+    mae = mean_absolute_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    return mse, rmse, mae, r2
 
-def evolve_models(X_train, y_train, X_test, y_test):
-    models = {}
-    error_dict = {}
-    for target in ['ice_velocity', 'ice_mask', 'ice_thickness']:
-        print(f"\nEvolving model for {target}...")
-        y_train_target = y_train[target].values
-        pop, log, hof = run_gp(X_train.values, y_train_target)
-        best_model = hof[0]
-        models[target] = best_model
-        
-        # Evaluate on train set
-        train_mse, train_rmse, train_mae, train_r2, _ = evaluate_model(best_model, X_train.values, y_train_target)
-        
-        # Evaluate on test set
-        test_mse, test_rmse, test_mae, test_r2, test_predictions = evaluate_model(best_model, X_test.values, y_test[target].values)
-        
-        # Calculate error for the entire test set
-        error = np.abs(y_test[target].values - test_predictions)
-        error_dict[f"{target}_error"] = error
-        
-        print(f"\nPerformance metrics for {target}:")
-        print(f"{'Metric':<10} {'Train':<15} {'Test':<15}")
-        print(f"{'-'*40}")
-        print(f"{'MSE':<10} {train_mse:<15.6f} {test_mse:<15.6f}")
-        print(f"{'RMSE':<10} {train_rmse:<15.6f} {test_rmse:<15.6f}")
-        print(f"{'MAE':<10} {train_mae:<15.6f} {test_mae:<15.6f}")
-        print(f"{'R2':<10} {train_r2:<15.6f} {test_r2:<15.6f}")
-        
-        # Print the best model
-        print(f"\nBest model for {target}:")
-        print(best_model)
+if __name__ == "__main__":
+    pop, log, hof = main()
+    best = hof[0]
+    print("Best individual:", best)
+    print("Best fitness:", best.fitness.values[0])
+
+    # Evaluate on test set
+    func = toolbox.compile(expr=best)
+    test_pred = np.array([func(*p) for p in X_test.values])
+
+    # Calculate metrics
+    mse, rmse, mae, r2 = calculate_metrics(y_test[TARGET].values, test_pred)
+    print(f"Test MSE: {mse}")
+    print(f"Test RMSE: {rmse}")
+    print(f"Test MAE: {mae}")
+    print(f"Test R2: {r2}")
+
+    # Plot the output symbology using custom function
+    plot_tree(best)
     
-    # Create a DataFrame with the error columns
-    error_df = pd.DataFrame(error_dict)
-    
-    return models, error_df
+    # Baseline
+    et = ExtraTreesRegressor(n_estimators=500, max_depth=10, min_samples_split=5, random_state=307, n_jobs=-1)
+    et.fit(X_train, y_train[TARGET])
+    et_pred = et.predict(X_test)
 
-X_train, X_test, y_train, y_test = get_train_test_splits(test_size=0.2)
-models, error_df = evolve_models(X_train, y_train, X_test, y_test)
-print("ERRORS", error_df.describe())
-df = get_combined_dataset(X_train, y_train, X_test, y_test)
-df = pd.concat([df, error_df], axis=1)
+    # Calculate metrics for ExtraTrees
+    et_mse, et_rmse, et_mae, et_r2 = calculate_metrics(y_test[TARGET].values, et_pred)
+    print("\nExtraTrees Baseline:")
+    print(f"Test MSE: {et_mse}")
+    print(f"Test RMSE: {et_rmse}")
+    print(f"Test MAE: {et_mae}")
+    print(f"Test R2: {et_r2}")
 
-for target in ['ice_velocity', 'ice_mask', 'ice_thickness']:
-    graph = plot_averaged_heatmap(df, f"{target}_error", save_path=f"out/images/gp/{target}_error")
+    # Plot GP vs ExtraTrees predictions
+    plt.figure(figsize=(10, 6))
+    plt.scatter(y_test[TARGET].values, test_pred, alpha=0.5, label='GP Predictions')
+    plt.scatter(y_test[TARGET].values, et_pred, alpha=0.5, label='ET Predictions')
+    plt.plot([y_test[TARGET].min(), y_test[TARGET].max()], 
+            [y_test[TARGET].min(), y_test[TARGET].max()], 
+            'r--', label='Perfect Prediction')
+    plt.xlabel(f'True {TARGET}')
+    plt.ylabel(f'Predicted {TARGET}')
+    plt.title(f'GP vs ExtraTrees Predictions for {TARGET}')
+    plt.legend()
+    plt.savefig('predictions_comparison.png')
+    plt.close()
