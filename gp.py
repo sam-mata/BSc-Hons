@@ -1,6 +1,6 @@
 # Constants
 TARGET = 'ice_velocity'  # The target variable to predict
-POPULATION = 15  # Number of individuals in the population
+POPULATION = 500  # Number of individuals in the population
 
 import numpy as np
 import operator
