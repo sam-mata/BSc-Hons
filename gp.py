@@ -56,7 +56,7 @@ def evalSymbReg(individual, points, targets):
     try:
         pred = np.array([func(*p) for p in points.values])
         mse = mean_squared_error(targets.values.ravel(), pred)
-    except Exception as e:
+    except Exception:
         mse = float("inf")
 
     return (mse,)

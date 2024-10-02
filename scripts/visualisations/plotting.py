@@ -1,7 +1,7 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-from scripts.visualisations.helpers import average_years, rescale_features
+from scripts.visualisations.helpers import average_years
 import networkx as nx
 from deap import gp
 

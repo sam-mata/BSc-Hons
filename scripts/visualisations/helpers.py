@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 
-import pandas as pd
-import numpy as np
-
 def average_years(df):
     # Identify numeric and non-numeric columns, excluding 'x' and 'y'
     numeric_columns = df.select_dtypes(include=[np.number]).columns.drop(['x', 'y'])
