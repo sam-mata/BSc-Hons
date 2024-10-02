@@ -1,0 +1,18 @@
+The initial dataset is comprised of 86 .txt files named by year from 2015 to 2100 inclusive (e.g. vars-2015-lowRes.txt, vars-2016-lowRes.txt...) with each file representing the data from a given year. Each file contains 2601 lines, with each line being the data for a single cell in a 51x51 grid (meaning 223,686 lines across the entire dataset). In each line 9 measures are given as follows: 
+
+x y bedrock_elevation ice_thickness ice_velocity ice_mask precipitation air_temperature ocean_temperature
+
+Here is some example data:
+-608000	1580800	-191.554428101	231.992141724	175.348709106	2	249.906661987	251.092590332	271.998657227
+-486400	1580800	-71.160697937	671.437072754	11.4663925171	2	190.409378052	251.80329895	272.163604736
+-364800	1580800	896.797973633	656.016723633	0.22090703249	2	179.93560791	246.002426147	272.245819092
+-243200	1580800	1182.81677246	1234.64660645	4.00450229645	2	80.0000305176	236.2552948	272.390991211
+-121600	1580800	-196.041229248	2821.10595703	9.14762210846	2	77.6792907715	232.227081299	272.456756592
+
+x and y are positional constants to uniquely identify the location of each cell. Both of these values range from -3,040,000m to +3,040,000m in discrete intervals of 121,600m, with the grid being centered around the point (0,0), which lies on the South Pole. Importantly the same grid is given each year, so the same cells will be in each year, but with different measures for everything except the x and y features (e.g. the cell x=-608000, y=1580800 will be present in every data file, so we can track changes in other features in that cell across the years).
+
+There are 3 continuous input features; precipitation (mm / year), air temperature (°K), and ocean temperature (°K), which are the respective measurements for each cell provided by the physical simulation. These are what should be used for prediction.
+
+There are 3 target outputs for the model to predict. These include 2 continuous measurements; ice thickness (m) and ice velocity (m / year), which represent the respective thickness and velocity of the ice in each cell. This also includes ice mask, which is a discrete value representing whether a cell contains grounded ice, floating ice, or no ice at all (i.e. open ocean).
+
+Additionally, the year of each line can be derived from the file it was loaded from. This means each line will have a unique combination of x, y, and year (e.g. the cell x=-608000, y=1580800 will be present in every data file, but with different year values)
