@@ -43,8 +43,8 @@ def plot_spatial_heatmap(df, feature, ax=None, title=None, cmap='viridis', figsi
     # Adjust labels
     ax.set_xlabel('X Coordinate')
     ax.set_ylabel('Y Coordinate')
-    ax.set_xticklabels([f'{float(t.get_text()):.0f}' for t in ax.get_xticklabels()])
-    ax.set_yticklabels([f'{float(t.get_text()):.0f}' for t in ax.get_yticklabels()])
+    ax.set_xticklabels([f'{float(t.get_text()):.3f}' for t in ax.get_xticklabels()])
+    ax.set_yticklabels([f'{float(t.get_text()):.3f}' for t in ax.get_yticklabels()])
     
     # Invert y-axis to match geographical orientation
     ax.invert_yaxis()

@@ -1,6 +1,9 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import pandas as pd
+from sklearn.feature_selection import SelectKBest, f_regression, mutual_info_regression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler
 
 
 def preprocess_data(df):
@@ -118,53 +121,123 @@ def derive_features(X, y):
         int
     )
     
-    # 3. Temperature difference
-    combined["temperature_difference"] = combined["ocean_temperature"] - combined["air_temperature"]
+    features = [col for col in X_derived.columns if col not in ["x", "y", "year"]]
     
-    # 4. Log of Air Temperature
-    combined["log_air_temperature"] = np.log(combined["air_temperature"])
+    def safe_divide(a, b, fill_value=0):
+        return np.divide(a, b, out=np.full_like(a, fill_value), where=b!=0)
     
-    # 5. Rolling std of precipitation
-    combined["rolling_std_precipitation"] = combined["precipitation"].rolling(window=3).std()
-    combined["rolling_std_precipitation"] = combined["rolling_std_precipitation"].fillna(0)
+    def safe_log(x, fill_value=0):
+        return np.log(np.where(x > 0, x, np.exp(fill_value)))
 
+    for feature_1 in features:
+        # 3. Multi-feature interactions
+        for feature_2 in features:
+            if feature_1 != feature_2:
+                # Difference
+                combined[f"{feature_1}_{feature_2}_difference"] = combined[feature_1] - combined[feature_2]
+                
+                # Ratio
+                combined[f"{feature_1}_{feature_2}_ratio"] = safe_divide(combined[feature_1], combined[feature_2])
+                
+                # Product
+                combined[f"{feature_1}_{feature_2}_product"] = combined[feature_1] * combined[feature_2]
+                
+        # 4. Cubes and squares
+        for power in range(1, 3):  
+            if power == 2:
+                combined[f"{feature_1}_squared"] = combined[feature_1] ** power
+            elif power == 3:
+                combined[f"{feature_1}_cubed"] = combined[feature_1] ** power
+        
+        # 5. Log Transforms
+        if feature_1 != "bedrock_elevation":
+            combined[f"log_{feature_1}"] = safe_log(combined[feature_1])
+        
+        # 6. Rolling Statistics
+        combined[f"rolling_mean_{feature_1}"] = combined[feature_1].rolling(window=3).mean().fillna(0)
+        combined[f"rolling_std_{feature_1}"] = combined[feature_1].rolling(window=3).std().fillna(0)
+        combined[f"rolling_min_{feature_1}"] = combined[feature_1].rolling(window=3).min().fillna(0)
+        combined[f"rolling_max_{feature_1}"] = combined[feature_1].rolling(window=3).max().fillna(0)
+        
+        # 7. Slopes
+        combined[f"slope_{feature_1}_x"] = combined[feature_1].diff().fillna(0)
+        combined[f"slope_{feature_1}_y"] = combined[feature_1].diff().fillna(0)
+        combined[f"slope_{feature_1}_magnitude"] = np.sqrt(combined[f"slope_{feature_1}_x"]**2 + combined[f"slope_{feature_1}_y"]**2)
+        
     
-    # 6. Rolling std of air temperature
-    combined["rolling_std_air_temperature"] = combined["air_temperature"].rolling(window=3).std()
-    combined["rolling_std_air_temperature"] = combined["rolling_std_air_temperature"].fillna(0)
+    # 8. Surface mass balances
+    for melting_factor in np.linspace(0.01, 0.1, 10):
+        combined[f'surface_mass_balance_{melting_factor}'] = combined['precipitation'] - combined['air_temperature'] * melting_factor # Melting factor of 1 mm / d-C
     
-    # 7. One-hot encode any air temperature values in the lower 45%
-    combined["air_temperature_low_45"] = (combined["air_temperature"] < np.percentile(combined["air_temperature"], 45)).astype(int)
-    
-    # 8. Bedrock slopes
-    combined['bedrock_slope_x'] = combined.groupby('y')['bedrock_elevation'].diff().fillna(0)
-    combined['bedrock_slope_y'] = combined.groupby('x')['bedrock_elevation'].diff().fillna(0)
-    combined['bedrock_slope_magnitude'] = np.sqrt(combined['bedrock_slope_x']**2 + combined['bedrock_slope_y']**2)
-    
-    # 9. Surface mass balance
-    combined['surface_mass_balance'] = combined['precipitation'] - combined['air_temperature'] * 1 # Melting factor of 1 mm / d-C
-    
-    # 10. Years since start
+    # 9. Years since start
     combined['years_since_start'] = combined['year'] - combined['year'].min()
 
     # Separate the combined dataframe back into X and y
-    X_columns = X.columns.tolist() + [
-        "distance_to_pole",
-        "bedrock_below_sea_level",
-        "temperature_difference",
-        "log_air_temperature",
-        "rolling_std_precipitation",
-        "rolling_std_air_temperature",
-        "air_temperature_low_45",
-        "bedrock_slope_x",
-        "bedrock_slope_y",
-        "bedrock_slope_magnitude",
-        "surface_mass_balance",
-        "years_since_start",
-    ]
     y_columns = y.columns.tolist()
+    X_columns = [col for col in combined.columns if col not in y_columns]
 
     X_derived = combined[X_columns]
     y_derived = combined[y_columns]
 
     return X_derived, y_derived
+
+
+def select_features(X, y, n_features=20, method='combined'):
+    """
+    Select the most important features using various methods.
+
+    Parameters:
+    X (pd.DataFrame): Feature set
+    y (pd.DataFrame): Target set
+    n_features (int): Number of features to select
+    method (str): Method to use for feature selection. 
+                  Options: 'f_regression', 'mutual_info', 'random_forest', 'combined'
+
+    Returns:
+    pd.DataFrame: DataFrame with selected features
+    """
+
+    if method == 'f_regression':
+        selector = SelectKBest(f_regression, k=n_features)
+        selector.fit(X, y)
+        mask = selector.get_support()
+        selected_features = X.columns[mask]
+
+    elif method == 'mutual_info':
+        selector = SelectKBest(mutual_info_regression, k=n_features)
+        selector.fit(X, y)
+        mask = selector.get_support()
+        selected_features = X.columns[mask]
+
+    elif method == 'random_forest':
+        rf = RandomForestRegressor(n_estimators=100, random_state=42)
+        rf.fit(X, y)
+        importances = rf.feature_importances_
+        indices = np.argsort(importances)[::-1]
+        selected_features = X.columns[indices[:n_features]]
+
+    elif method == 'combined':
+        # Combine results from all methods
+        f_regression_selector = SelectKBest(f_regression, k='all')
+        f_regression_selector.fit(X, y)
+        f_scores = f_regression_selector.scores_
+
+        mutual_info_selector = SelectKBest(mutual_info_regression, k='all')
+        mutual_info_selector.fit(X, y)
+        mi_scores = mutual_info_selector.scores_
+
+        rf = RandomForestRegressor(n_estimators=100, random_state=42)
+        rf.fit(X, y)
+        rf_scores = rf.feature_importances_
+
+        # Normalize scores
+        f_scores = (f_scores - f_scores.min()) / (f_scores.max() - f_scores.min())
+        mi_scores = (mi_scores - mi_scores.min()) / (mi_scores.max() - mi_scores.min())
+        rf_scores = (rf_scores - rf_scores.min()) / (rf_scores.max() - rf_scores.min())
+
+        # Combine scores
+        combined_scores = f_scores + mi_scores + rf_scores
+        indices = np.argsort(combined_scores)[::-1]
+        selected_features = X.columns[indices[:n_features]]
+        
+    return X[selected_features]
