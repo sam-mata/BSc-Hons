@@ -1,6 +1,5 @@
 from sklearn.linear_model import (
     LinearRegression,
-    PoissonRegressor,
     Ridge,
     Lasso,
     ElasticNet,
@@ -15,7 +14,6 @@ from sklearn.linear_model import (
     RANSACRegressor,
     TheilSenRegressor,
 )
-from sklearn.pipeline import make_pipeline
 from sklearn.svm import LinearSVR
 #from sklearn.kernel_ridge import KernelRidge
 from sklearn.neighbors import KNeighborsRegressor
@@ -26,9 +24,6 @@ from sklearn.ensemble import (
     GradientBoostingRegressor,
     AdaBoostRegressor,
 )
-from sklearn.isotonic import IsotonicRegression
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.svm import SVR
 from sklearn.neural_network import MLPRegressor
 #from sklearn.gaussian_process import GaussianProcessRegressor
 #from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
@@ -57,20 +52,13 @@ def load_models(RANDOM_STATE = 42, N_ESTIMATORS = 100, MAX_ITER = 1000, MAX_DEPT
         ("Lars", Lars(random_state=RANDOM_STATE)),
         ("LassoLars", LassoLars(alpha=ALPHA, random_state=RANDOM_STATE)),
         ("OrthogonalMatchingPursuit", OrthogonalMatchingPursuit()),
-        ("BayesianRidge", BayesianRidge(n_iter=MAX_ITER)),
-        ("ARDRegression", ARDRegression(n_iter=MAX_ITER)),
+        ("BayesianRidge", BayesianRidge(max_iter=MAX_ITER)),
+        ("ARDRegression", ARDRegression(max_iter=MAX_ITER)),
         ("SGDRegressor", SGDRegressor(max_iter=MAX_ITER, random_state=RANDOM_STATE)),
         (
             "PassiveAggressiveRegressor",
             PassiveAggressiveRegressor(max_iter=MAX_ITER, random_state=RANDOM_STATE),
         ),
-        ("Isotonic Regression", IsotonicRegression()),
-        ("SVR (RBF)", SVR(kernel='rbf')),
-        ("SVR (Linear)", SVR(kernel='linear')),
-        ("SVR (Poly)", SVR(kernel='poly')),
-        ("Quantile Regression", GradientBoostingRegressor(loss='quantile', alpha=0.5)),
-        ("Poisson Regression", PoissonRegressor()),
-        ("Polynomial Regression", make_pipeline(PolynomialFeatures(degree=2), LinearRegression())),
         (
             "HuberRegressor",
             HuberRegressor(max_iter=MAX_ITER),
