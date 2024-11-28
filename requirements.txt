@@ -14,7 +14,7 @@ decorator==5.1.1
 defusedxml==0.7.1
 docopt==0.6.2
 executing==2.1.0
-fastjsonschema==2.20.0
+fastjsonschema==2.21.0
 filelock==3.16.1
 fonttools==4.55.0
 fsspec==2024.10.0
