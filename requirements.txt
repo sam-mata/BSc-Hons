@@ -62,5 +62,5 @@ pyzmq==26.2.0
 referencing==0.35.1
 requests==2.32.3
 rpds-py==0.22.3
-scikit-learn==1.5.2
+scikit-learn==1.6.0
 scipy==1.14.1
