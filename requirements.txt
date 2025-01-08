@@ -22,7 +22,7 @@ graphviz==0.20.3
 idna==3.10
 ipython==8.30.0
 jedi==0.19.2
-Jinja2==3.1.4
+Jinja2==3.1.5
 joblib==1.4.2
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
