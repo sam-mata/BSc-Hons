@@ -1,8 +1,8 @@
 # Evolutionary Learning for Antarctic Ice-Sheet Modelling
-This project, to be submitted as my honors-year research project, endeavours to utilize evolutionary machine learning algorithms to more efficiently predict changes in ice sheets.
+This project, submitted as my honors-year research project, endeavoured to utilize evolutionary machine learning algorithms to more efficiently predict changes in Antarctic ice sheets.
 
-> [!CAUTION]
-> This project **is not complete**, and should be viewed as a work-in-progress.
+> [!WARNING]
+> This project is **no longer active**, and listed as an archive.
 
 ## 1. Brief
 
