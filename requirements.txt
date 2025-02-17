@@ -30,7 +30,7 @@ jupyter_client==8.6.3
 jupyter_core==5.7.2
 jupyterlab_pygments==0.3.0
 kiwisolver==1.4.8
-lightgbm==4.5.0
+lightgbm==4.6.0
 MarkupSafe==3.0.2
 matplotlib==3.10.0
 matplotlib-inline==0.1.7
@@ -63,4 +63,4 @@ referencing==0.36.2
 requests==2.32.3
 rpds-py==0.22.3
 scikit-learn==1.6.1
-scipy==1.15.1
+scipy==1.15.2
